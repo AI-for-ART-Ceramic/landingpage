@@ -42,12 +42,12 @@ export default function Navbar() {
                             </Link>
                         ))}
                         <a
-                            href="http://chat.lanna-ai.com"
+                            href="http://Ceramix.lanna-ai.com"
                             target="_blank"
                             rel="noopener noreferrer"
                             className="px-4 py-2 text-sm font-semibold text-slate-900 bg-amber-400 rounded-full hover:bg-amber-300 transition-colors shadow-lg shadow-amber-500/20"
                         >
-                            Launch App
+                            Launch Ceramix
                         </a>
                     </div>
 
