@@ -1,105 +1,125 @@
-# Landing Page AI for ART Ceramic  
+# 🎨 Lanna AI  – Landing Page
 
-Landing Page ทันสมัยที่สร้างด้วย Next.js, React, TypeScript และ Tailwind CSS
+Landing Page สำหรับโครงการ **Lanna AI**
+พัฒนาด้วย **Next.js, React, TypeScript และ Tailwind CSS** 
+---
 
-## 🚀 เริ่มต้นใช้งาน (Getting Started)
+## 🚀 Getting Started
 
-### สิ่งที่ต้องมี (Prerequisites)
+### Prerequisites
 
-- Node.js เวอร์ชั่น 20.x ขึ้นไป
-- Package manager `npm`
+* **Node.js** เวอร์ชัน 20.x ขึ้นไป
+* **npm** (Node Package Manager)
 
-### การติดตั้ง (Installation)
+---
 
-1. Clone repository:
+### Installation
 
-<!-- end list -->
+1. Clone Repository
 
 ```bash
 git clone https://github.com/AI-for-ART-Ceramic/landingpage.git
 cd landingpage
 ```
 
-2. Install dependencies:
-
-<!-- end list -->
+2. Install Dependencies
 
 ```bash
 npm install
 ```
 
-## 💻 การพัฒนา (Development)
+---
 
-รัน development server:
+## 💻 Development
+
+เริ่มต้น Development Server:
 
 ```bash
 npm run dev
 ```
 
-เปิด [http://localhost:3000](https://www.google.com/search?q=http://localhost:3000) ใน Browser เพื่อดูผลลัพธ์
- สามารถเริ่มแก้ไขหน้าเว็บได้โดยแก้ไฟล์ `src/app/page.tsx` หน้าเว็บจะ Auto-update ให้ทันทีที่คุณแก้ไขไฟล์
+เปิดเบราว์เซอร์ที่
+👉 [http://localhost:3000](http://localhost:3000)
 
-### Scripts ที่ใช้ได้
+สามารถแก้ไขหน้าเว็บได้ที่ไฟล์
+`src/app/page.tsx`
+ระบบจะ **Hot Reload / Auto Update** ทันทีเมื่อมีการแก้ไขไฟล์
 
-- `npm run dev` - เริ่ม Development server
-- `npm run build` - Build application สำหรับ Production
-- `npm run start` - เริ่ม Production server
-- `npm run lint` - รัน ESLint เพื่อตรวจสอบคุณภาพโค้ด
+---
 
-## 📦 Build สำหรับ Production
+### Available Scripts
 
-Build application สำหรับ Production:
+* `npm run dev` – รัน Development Server
+* `npm run build` – Build สำหรับ Production
+* `npm run start` – รัน Production Server
+* `npm run lint` – ตรวจสอบคุณภาพโค้ดด้วย ESLint
+
+---
+
+## 📦 Production Build
+
+Build แอปพลิเคชันสำหรับ Production:
 
 ```bash
 npm run build
 ```
 
-คำสั่งนี้จะสร้าง Production build ที่ Optimize แล้วไว้ในโฟลเดอร์ `.next`
+ไฟล์ที่ผ่านการ Optimize แล้วจะถูกสร้างในโฟลเดอร์ `.next`
 
-### ทดสอบ Production Build บนเครื่อง (Locally)
-
-หลังจาก Build เสร็จ คุณสามารถทดสอบ Production build บนเครื่องได้โดยใช้คำสั่ง:
+### ทดสอบ Production Build บนเครื่อง
 
 ```bash
 npm run start
 ```
 
-Production server จะเริ่มทำงานที่ [http://localhost:3000](https://www.google.com/search?q=http://localhost:3000)
+Production Server จะรันที่
+👉 [http://localhost:3000](http://localhost:3000)
 
-## 🚢 การ Deployment
+---
 
-### Deploy บน Vercel
+## 🚢 Deployment
 
-- ใช้งาน git repository นี้กับ Vercel git merge เข้า branch `main`เเล้ว Vercel จะทำการ Deploy อัตโนมัติ
+### Deploy ด้วย Vercel
+
+* เชื่อมต่อ Git Repository นี้กับ **Vercel**
+* เมื่อ Merge โค้ดเข้า Branch `main`
+* ระบบจะ **Deploy อัตโนมัติ (Auto Deploy)**
+
+---
 
 ## 🛠️ Tech Stack
 
-- **Framework:** Next.js 16
-- **Language:** TypeScript
-- **Styling:** Tailwind CSS 4
-- **UI Components:** React 19
-- **Animations:** Framer Motion
-- **Icons:** Lucide React
+* **Framework:** Next.js 16
+* **Language:** TypeScript
+* **UI Library:** React 19
+* **Styling:** Tailwind CSS 4
+* **Animation:** Framer Motion
+* **Icons:** Lucide React
 
-## 📝 Project Structure (โครงสร้างโปรเจกต์)
+---
 
-```
+## 🗂️ Project Structure
+
+```bash
 landingpage/
-├── public/          # ไฟล์ Static ต่างๆ
+├── public/                 # Static assets
 ├── src/
-│   ├── app/         # โฟลเดอร์ App ของ Next.js
-│   │   ├── page.tsx                 # หน้า Home
-│   │   ├── layout.tsx              # Layout หลัก (Root layout)
-│   │   ├── globals.css             # Global styles
-│   │   ├── privacy-policy/         # หน้า Privacy policy
-│   │   └── terms-of-service/       # หน้า Terms of service
-│   └── components/  # React components
-│       ├── Features.tsx
-│       ├── Footer.tsx
-│       ├── Hero.tsx
-│       ├── Navbar.tsx
-│       └── TechStack.tsx
-├── next.config.ts   # การตั้งค่า Next.js
-├── tsconfig.json    # การตั้งค่า TypeScript
-└── package.json     # รายชื่อ Dependencies และ Scripts
+│   ├── app/                # Next.js App Router
+│   │   ├── page.tsx        # Home page
+│   │   ├── layout.tsx      # Root layout
+│   │   ├── globals.css     # Global styles
+│   │   ├── privacy-policy/ # Privacy Policy page
+│   │   └── terms-of-service/ # Terms of Service page
+│   └── components/         # Reusable React components
+│       ├── Features.tsx
+│       ├── Footer.tsx
+│       ├── Hero.tsx
+│       ├── Navbar.tsx
+│       └── TechStack.tsx
+├── next.config.ts           # Next.js configuration
+├── tsconfig.json            # TypeScript configuration
+└── package.json             # Scripts & dependencies
 ```
+
+---
+## builded with ❤️ by Lanna AI Team
