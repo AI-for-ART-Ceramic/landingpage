@@ -1,7 +1,7 @@
 # 🎨 Lanna AI  – Landing Page
 
 Landing Page สำหรับโครงการ **Lanna AI**
-พัฒนาด้วย **Next.js, React, TypeScript และ Tailwind CSS** 
+พัฒนาด้วย **Next.js, React, TypeScript และ Tailwind CSS**
 ---
 
 ## 🚀 Getting Started
@@ -22,7 +22,7 @@ git clone https://github.com/AI-for-ART-Ceramic/landingpage.git
 cd landingpage
 ```
 
-2. Install Dependencies
+1. Install Dependencies
 
 ```bash
 npm install
@@ -122,4 +122,5 @@ landingpage/
 ```
 
 ---
+
 ## builded with ❤️ by Lanna AI Team
