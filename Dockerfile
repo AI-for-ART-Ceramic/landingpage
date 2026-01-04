@@ -1,42 +1,39 @@
-# Build stage
+# 1. Build Stage
 FROM node:20-alpine AS builder
-
 WORKDIR /app
 
-# Copy package files
+# ติดตั้ง dependencies ตาม package.json
 COPY package*.json ./
-
-# Install dependencies
 RUN npm ci
 
-# Copy source code
+# Copy โค้ดทั้งหมดและทำการ Build
 COPY . .
-
-# Build the application
 RUN npm run build
 
-# Production stage
+# 2. Production Stage (Runner)
 FROM node:20-alpine AS runner
-
 WORKDIR /app
 
-# Set production environment
+# ตั้งค่า Environment
 ENV NODE_ENV=production
+# --- จุดสำคัญ: สั่งให้ Next.js Standalone รันที่พอร์ต 3030 จริงๆ ---
+ENV PORT=3030
+ENV HOSTNAME="0.0.0.0"
 
-# Create a non-root user
+# สร้าง Non-root user เพื่อความปลอดภัย (Security Best Practice)
 RUN addgroup --system --gid 1001 nodejs && \
     adduser --system --uid 1001 nextjs
 
-# Copy built application from builder
+# Copy เฉพาะไฟล์ที่จำเป็นจาก Stage builder (ช่วยให้ Image เล็กมาก)
 COPY --from=builder /app/public ./public
 COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
 
-# Switch to non-root user
+# สลับไปใช้ User ที่สร้างไว้
 USER nextjs
 
-# Expose port
+# ประกาศพอร์ตที่ต้องการใช้งาน
 EXPOSE 3030
 
-# Start the application
+# คำสั่งรันแอปพลิเคชัน
 CMD ["node", "server.js"]
