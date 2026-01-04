@@ -121,6 +121,16 @@ landingpage/
 └── package.json             # Scripts & dependencies
 ```
 
+## build docker  
+- build image name: laningpage:0.1.0 
+```
+docker build -t laningpage:0.1.0 .
+```
+## run docker  
+- run container name: laningpage_container 
+```
+docker run -d -p 3050:3000 --name laningpage_container laningpage:0.1.0
+```
 ---
 
 ## builded with ❤️ by Lanna AI Team
