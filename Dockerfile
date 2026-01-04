@@ -36,7 +36,7 @@ COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
 USER nextjs
 
 # Expose port
-EXPOSE 3031
+EXPOSE 80
 
 # Start the application
 CMD ["node", "server.js"]
