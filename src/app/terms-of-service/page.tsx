@@ -41,7 +41,7 @@ export default function TermsOfService() {
                     <section>
                         <h2 className="text-2xl font-semibold text-amber-400 mb-4">5. Termination</h2>
                         <p>
-                            We may terminate or suspend your account immediately, without prior notice or liability, for any reason whatsoever, including without limitation if you breach the Terms.
+                            We may terminate or suspend your account immediately, without prior notice or liability, for any reason whatsoever, including without limitation if you breach the Terms .
                         </p>
                     </section>
 
