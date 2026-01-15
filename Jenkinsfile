@@ -14,9 +14,9 @@ pipeline {
             steps {
                 script {
                     // Login Docker Hub
-                    docker.withRegistry('https://index.docker.io/v1/', "${DOCKER_CRED_ID}") {
+                    docker.withRegistry('', DOCKER_CRED_ID) {
                         echo '🔨 Building Docker Image...'
-                        def app = docker.build("${IMAGE_NAME}")
+                        def app = docker.build(IMAGE_NAME)
                         
                         echo 'Pushing to Docker Hub...'
                         app.push()
