@@ -8,7 +8,7 @@ pipeline {
         // --- 2. อ้างอิง Credentials ID ใน Jenkins ---
         DOCKER_CRED_ID = 'docker-hub-login'             // ID ที่เก็บ user/pass docker hub
     }
-ป
+
     stages {
         stage('Build & Push Docker') {
             steps {
