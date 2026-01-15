@@ -55,7 +55,7 @@ export default function Hero() {
                         className="flex flex-col sm:flex-row items-center justify-center gap-4"
                     >
                         <a
-                            href="http://chat.lanna-ai.com"
+                            href="https://ceramix.lanna-ai.com"
                             className="w-full sm:w-auto px-8 py-4 text-slate-900 bg-amber-400 rounded-xl font-bold hover:bg-amber-300 transition-all flex items-center justify-center gap-2 shadow-lg shadow-amber-500/20 hover:scale-105"
                         >
                             Get Started Now
