@@ -19,7 +19,7 @@ jobs:
   deploy:
     name: Build & Deploy
     runs-on: self-hosted
-    timeout-minutes: 15 # Prevent jobs from hanging indefinitely
+    timeout-minutes: 15 
 
     steps:
       - name: Checkout repository
