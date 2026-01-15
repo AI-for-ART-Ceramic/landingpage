@@ -1,4 +1,4 @@
-name: Deploy to Lanna AI 
+name: Deploy to Lanna AI
 
 on:
   push:
@@ -11,34 +11,73 @@ concurrency:
   cancel-in-progress: false
 
 env:
-  IMAGE_NAME: "landingpage-app-image"
+  REGISTRY: ghcr.io
+  # Use github.repository as the image name (owner/repo)
+  IMAGE_NAME: ${{ github.repository }}
   CONTAINER_NAME: "landingpage-app"
   PORT: "3030"
 
 jobs:
-  deploy:
-    name: Build & Deploy
-    runs-on: self-hosted
-    timeout-minutes: 15 
+  # Job 1: Build on Cloud (GitHub Runners)
+  build:
+    name: Build & Push Image
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Build Docker Image
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      # Extract metadata (tags, labels) for Docker
+      - name: Extract Docker metadata
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          tags: |
+            type=raw,value=latest
+            type=sha,format=long
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+
+  # Job 2: Deploy on Self-Hosted Server
+  deploy:
+    name: Deploy to Server
+    needs: build
+    runs-on: self-hosted
+    timeout-minutes: 15
+
+    steps:
+      - name: Login to GitHub Container Registry
+        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ${{ env.REGISTRY }} -u ${{ github.actor }} --password-stdin
+
+      - name: Pull Docker Image
         run: |
-          echo "🔨 Building Docker Image: $IMAGE_NAME"
-          # Build with --no-cache to ensure fresh build if needed, or remove it for speed. 
-          # Keeping it standard for now.
-          docker build -t $IMAGE_NAME .
+          echo "⬇️ Pulling latest image..."
+          docker pull ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
 
       - name: Stop & Remove Old Container
         run: |
-          echo "Checking for existing container: $CONTAINER_NAME"
-          if [ "$(docker ps -aq -f name=$CONTAINER_NAME)" ]; then
+          echo "Checking for existing container: ${{ env.CONTAINER_NAME }}"
+          if [ "$(docker ps -aq -f name=${{ env.CONTAINER_NAME }})" ]; then
               echo "Existing container found. Stopping and removing..."
-              docker stop $CONTAINER_NAME
-              docker rm $CONTAINER_NAME
+              docker stop ${{ env.CONTAINER_NAME }}
+              docker rm ${{ env.CONTAINER_NAME }}
           else
               echo "No existing container found."
           fi
@@ -47,17 +86,17 @@ jobs:
         run: |
           echo "🚀 Starting new container..."
           docker run -d \
-            --name $CONTAINER_NAME \
-            -p $PORT:$PORT \
+            --name ${{ env.CONTAINER_NAME }} \
+            -p ${{ env.PORT }}:${{ env.PORT }} \
             --restart unless-stopped \
-            $IMAGE_NAME
+            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
           
-          echo "   Container started with ID: $(docker ps -q -f name=$CONTAINER_NAME)"
+          echo "   Container started with ID: $(docker ps -q -f name=${{ env.CONTAINER_NAME }})"
 
       - name: Health Check
         id: health-check
         run: |
-          echo "🏥 Performing Health Check on port $PORT..."
+          echo "🏥 Performing Health Check on port ${{ env.PORT }}..."
           
           # Retry loop (Wait up to 60 seconds)
           MAX_RETRIES=12
@@ -65,10 +104,10 @@ jobs:
           SUCCESS=false
 
           for ((i=1; i<=MAX_RETRIES; i++)); do
-            echo "   Attempt $i/$MAX_RETRIES: Checking http://localhost:$PORT..."
+            echo "   Attempt $i/$MAX_RETRIES: Checking http://localhost:${{ env.PORT }}..."
             
             # Check if endpoint returns HTTP 200
-            if curl -s -o /dev/null -w "%{http_code}" http://localhost:$PORT | grep -q "200"; then
+            if curl -s -o /dev/null -w "%{http_code}" http://localhost:${{ env.PORT }} | grep -q "200"; then
               echo "   ✅ Health check passed! Application is running."
               SUCCESS=true
               break
@@ -81,7 +120,7 @@ jobs:
           if [ "$SUCCESS" = false ]; then
             echo "   ❌ Health check failed after $((MAX_RETRIES * SLEEP_SECONDS)) seconds."
             echo "   Logs from container:"
-            docker logs --tail 50 $CONTAINER_NAME
+            docker logs --tail 50 ${{ env.CONTAINER_NAME }}
             exit 1
           fi
 
