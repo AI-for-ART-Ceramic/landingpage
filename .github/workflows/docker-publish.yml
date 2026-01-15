@@ -1,45 +1,93 @@
-name: Build and Push Docker Image
+name: Deploy to Self-Hosted Server
 
 on:
   push:
     branches: [ "main", "master" ]
   workflow_dispatch:
 
+# Ensure only one deployment runs at a time to prevent race conditions
+concurrency:
+  group: production-deployment
+  cancel-in-progress: false
+
 env:
-  REGISTRY: ghcr.io
-  IMAGE_NAME: ${{ github.repository }}
+  IMAGE_NAME: "landingpage-app-image"
+  CONTAINER_NAME: "landingpage-app"
+  PORT: "3030"
 
 jobs:
-  build-and-push:
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      packages: write
+  deploy:
+    name: Build & Deploy
+    runs-on: self-hosted
+    timeout-minutes: 15 # Prevent jobs from hanging indefinitely
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Log in to the Container registry
-        uses: docker/login-action@v3
-        with:
-          registry: ${{ env.REGISTRY }}
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Build Docker Image
+        run: |
+          echo "🔨 Building Docker Image: $IMAGE_NAME"
+          # Build with --no-cache to ensure fresh build if needed, or remove it for speed. 
+          # Keeping it standard for now.
+          docker build -t $IMAGE_NAME .
 
-      - name: Extract metadata (tags, labels) for Docker
-        id: meta
-        uses: docker/metadata-action@v5
-        with:
-          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
-          tags: |
-            type=ref,event=branch
-            type=raw,value=latest
+      - name: Stop & Remove Old Container
+        run: |
+          echo "Checking for existing container: $CONTAINER_NAME"
+          if [ "$(docker ps -aq -f name=$CONTAINER_NAME)" ]; then
+              echo "Existing container found. Stopping and removing..."
+              docker stop $CONTAINER_NAME
+              docker rm $CONTAINER_NAME
+          else
+              echo "No existing container found."
+          fi
 
-      - name: Build and push Docker image
-        uses: docker/build-push-action@v5
-        with:
-          context: .
-          push: true
-          tags: ${{ steps.meta.outputs.tags }}
-          labels: ${{ steps.meta.outputs.labels }}
+      - name: Run New Container
+        run: |
+          echo "🚀 Starting new container..."
+          docker run -d \
+            --name $CONTAINER_NAME \
+            -p $PORT:$PORT \
+            --restart unless-stopped \
+            $IMAGE_NAME
+          
+          echo "   Container started with ID: $(docker ps -q -f name=$CONTAINER_NAME)"
+
+      - name: Health Check
+        id: health-check
+        run: |
+          echo "🏥 Performing Health Check on port $PORT..."
+          
+          # Retry loop (Wait up to 60 seconds)
+          MAX_RETRIES=12
+          SLEEP_SECONDS=5
+          SUCCESS=false
+
+          for ((i=1; i<=MAX_RETRIES; i++)); do
+            echo "   Attempt $i/$MAX_RETRIES: Checking http://localhost:$PORT..."
+            
+            # Check if endpoint returns HTTP 200
+            if curl -s -o /dev/null -w "%{http_code}" http://localhost:$PORT | grep -q "200"; then
+              echo "   ✅ Health check passed! Application is running."
+              SUCCESS=true
+              break
+            fi
+            
+            echo "   Container not ready yet. Waiting ${SLEEP_SECONDS}s..."
+            sleep $SLEEP_SECONDS
+          done
+
+          if [ "$SUCCESS" = false ]; then
+            echo "   ❌ Health check failed after $((MAX_RETRIES * SLEEP_SECONDS)) seconds."
+            echo "   Logs from container:"
+            docker logs --tail 50 $CONTAINER_NAME
+            exit 1
+          fi
+
+      - name: Cleanup
+        if: always() # Run cleanup even if deployment fails
+        run: |
+          echo "🧹 Cleaning up dangling images..."
+          docker image prune -f
+          echo "   Cleanup complete."
