@@ -1,13 +1,8 @@
-<<<<<<< HEAD
-import Navbar from "@/components/sections/Navbar";
-import Footer from "@/components/sections/Footer";
-=======
 "use client";
 
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
+import Navbar from "@/components/sections/Navbar";
+import Footer from "@/components/sections/Footer";
 import { useLanguage } from "@/context/LanguageContext";
->>>>>>> develop
 
 export default function PrivacyPolicy() {
     const { t } = useLanguage();
@@ -21,15 +16,9 @@ export default function PrivacyPolicy() {
                     <p className="text-sm text-muted-foreground">{t.privacyPolicy.lastUpdated} {new Date().toLocaleDateString()}</p>
 
                     <section>
-<<<<<<< HEAD
-                        <h2 className="text-2xl font-semibold text-amber-400 mb-4">1. Introduction</h2>
-                        <p>
-                            Welcome to Lanna AI  (&quot;we,&quot; &quot;our,&quot; or &quot;us&quot;). We are committed to protecting your privacy and ensuring the security of your personal information. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our website and services (collectively, the &quot;Service&quot;).
-=======
                         <h2 className="text-2xl font-semibold text-secondary mb-4">{t.privacyPolicy.intro.title}</h2>
                         <p className="text-foreground/80 leading-relaxed">
                             {t.privacyPolicy.intro.content}
->>>>>>> develop
                         </p>
                     </section>
 

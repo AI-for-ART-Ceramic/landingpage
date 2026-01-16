@@ -1,13 +1,8 @@
-<<<<<<< HEAD
-import Navbar from "@/components/sections/Navbar";
-import Footer from "@/components/sections/Footer";
-=======
 "use client";
 
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
+import Navbar from "@/components/sections/Navbar";
+import Footer from "@/components/sections/Footer";
 import { useLanguage } from "@/context/LanguageContext";
->>>>>>> develop
 
 export default function TermsOfService() {
     const { t } = useLanguage();
