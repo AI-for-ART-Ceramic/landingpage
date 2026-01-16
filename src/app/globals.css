@@ -1,23 +1,23 @@
 @import "tailwindcss";
 
 :root {
-  /* Dark Premium Theme by default */
-  --background: #0f172a; /* Slate 900 */
-  --foreground: #f8fafc; /* Slate 50 */
+  /* Warm/Classic Theme (Ivory & Brick Red) */
+  --background: #FAFAEC; /* Ivory */
+  --foreground: #2B333B; /* Jet Black */
   
-  /* Lanna Gold/Amber */
-  --primary: #fbbf24; /* Amber 400 */
-  --primary-hover: #d97706; /* Amber 600 */
+  /* Brick Red */
+  --primary: #B93327; 
+  --primary-hover: #96281F;
   
-  /* AI Blue/Cyan */
-  --secondary: #0ea5e9; /* Sky 500 */
-  --secondary-hover: #0284c7; /* Sky 600 */
+  /* Gold */
+  --secondary: #FFD609;
+  --secondary-hover: #E0BC08;
   
-  /* Accent Purple */
-  --accent: #8b5cf6; /* Violet 500 */
+  /* Medium Jungle Green */
+  --accent: #5CAD5C;
   
-  --muted: #334155; /* Slate 700 */
-  --muted-foreground: #94a3b8; /* Slate 400 */
+  --muted: #E4E4D9; /* Muted Ivory */
+  --muted-foreground: #5D6B78; /* Soft Jet */
 }
 
 @theme inline {
