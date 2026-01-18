@@ -1,8 +1,7 @@
 # 🎨 Lanna AI  – Landing Page
 
 Landing Page สำหรับโครงการ **Lanna AI**
-พัฒนาด้วย **Next.js, React, TypeScript และ Tailwind CSS**
----
+## website depoly on : [https://lanna-ai.com/](https://lanna-ai.com/)
 
 ## 🚀 Getting Started
 
@@ -53,6 +52,7 @@ npm run dev
 * `npm run build` – Build สำหรับ Production
 * `npm run start` – รัน Production Server
 * `npm run lint` – ตรวจสอบคุณภาพโค้ดด้วย ESLint
+* `npm run format` – จัดรูปแบบโค้ดด้วย Prettier
 
 ---
 
@@ -89,12 +89,15 @@ Production Server จะรันที่
 
 ## 🛠️ Tech Stack
 
-* **Framework:** Next.js 16
-* **Language:** TypeScript
-* **UI Library:** React 19
+* **Framework:** Next.js 16.0.10
+* **Language:** TypeScript 5
+* **UI Library:** React 19.2.1
 * **Styling:** Tailwind CSS 4
-* **Animation:** Framer Motion
+* **Animation:** Framer Motion 12
 * **Icons:** Lucide React
+* **Utilities:** clsx, tailwind-merge
+* **Linting:** ESLint 9 + Prettier
+* **Git Hooks:** Husky + lint-staged
 
 ---
 
@@ -102,35 +105,69 @@ Production Server จะรันที่
 
 ```bash
 landingpage/
-├── public/                 # Static assets
+├── public/                      # Static assets
 ├── src/
-│   ├── app/                # Next.js App Router
-│   │   ├── page.tsx        # Home page
-│   │   ├── layout.tsx      # Root layout
-│   │   ├── globals.css     # Global styles
-│   │   ├── privacy-policy/ # Privacy Policy page
-│   │   └── terms-of-service/ # Terms of Service page
-│   └── components/         # Reusable React components
-│       ├── Features.tsx
-│       ├── Footer.tsx
-│       ├── Hero.tsx
-│       ├── Navbar.tsx
-│       └── TechStack.tsx
-├── next.config.ts           # Next.js configuration
-├── tsconfig.json            # TypeScript configuration
-└── package.json             # Scripts & dependencies
+│   ├── app/                     # Next.js App Router
+│   │   ├── page.tsx             # Home page
+│   │   ├── layout.tsx           # Root layout
+│   │   ├── globals.css          # Global styles
+│   │   ├── privacy-policy/      # Privacy Policy page
+│   │   └── terms-of-service/    # Terms of Service page
+│   ├── components/              # Reusable React components
+│   │   ├── sections/            # Section components
+│   │   │   ├── Features.tsx
+│   │   │   ├── Footer.tsx
+│   │   │   ├── Hero.tsx
+│   │   │   ├── Navbar.tsx
+│   │   │   └── TechStack.tsx
+│   │   └── ui/                  # UI components
+│   ├── context/                 # React Context
+│   │   └── LanguageContext.tsx
+│   ├── lib/                     # Utilities & constants
+│   │   ├── constants.ts
+│   │   └── utils.ts
+│   └── utils/                   # Helper utilities
+│       └── translations.ts
+├── Dockerfile                   # Docker configuration
+├── eslint.config.mjs            # ESLint configuration
+├── next.config.ts               # Next.js configuration
+├── postcss.config.mjs           # PostCSS configuration
+├── tsconfig.json                # TypeScript configuration
+└── package.json                 # Scripts & dependencies
 ```
 
-## build docker  
-- build image name: laningpage:0.1.0 
+## 🐳 Docker Deployment
+
+### Build Docker Image
+
+Build image with name: `landingpage:0.1.0`
+
+```bash
+docker build -t landingpage:0.1.0 .
 ```
-docker build -t laningpage:0.1.0 .
+
+### Run Docker Container
+
+Run container with name: `landingpage_container`
+
+```bash
+docker run -d -p 3050:3000 --name landingpage_container landingpage:0.1.0
 ```
-## run docker  
-- run container name: laningpage_container 
-```
-docker run -d -p 3050:3000 --name laningpage_container laningpage:0.1.0
-```
+
+เข้าถึงแอปพลิเคชันได้ที่:
+👉 [http://localhost:3050](http://localhost:3050)
 ---
 
-## builded with ❤️ by Lanna AI Team
+## 📝 License
+
+This project is private and proprietary.
+
+---
+
+## 💬 Support
+
+หากมีปัญหาหรือคำถาม กรุณาติดต่อทีม Lanna AI
+
+---
+
+**Built with ❤️ by Lanna AI Team**
