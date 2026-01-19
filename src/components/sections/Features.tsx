@@ -74,6 +74,7 @@ export default function Features() {
                 </div>
 
                 <motion.div
+                    key={t.features.title}
                     variants={container}
                     initial="hidden"
                     whileInView="show"

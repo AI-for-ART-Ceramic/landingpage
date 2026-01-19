@@ -13,7 +13,7 @@ export default function PrivacyPolicy() {
             <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-32">
                 <h1 className="text-4xl font-bold text-primary mb-8">{t.privacyPolicy.title}</h1>
                 <div className="space-y-6">
-                    <p className="text-sm text-muted-foreground">{t.privacyPolicy.lastUpdated} {new Date().toLocaleDateString()}</p>
+                    <p className="text-sm text-muted-foreground">{t.privacyPolicy.lastUpdated} 18/01/2026</p>
 
                     <section>
                         <h2 className="text-2xl font-semibold text-secondary mb-4">{t.privacyPolicy.intro.title}</h2>
@@ -26,7 +26,7 @@ export default function PrivacyPolicy() {
                         <h2 className="text-2xl font-semibold text-secondary mb-4">{t.privacyPolicy.infoCollection.title}</h2>
                         <ul className="list-disc pl-5 space-y-2 text-foreground/80">
                             {t.privacyPolicy.infoCollection.items.map((item, index) => (
-                                <li key={index}>{item}</li>
+                                <li key={item}>{item}</li>
                             ))}
                         </ul>
                     </section>
@@ -36,7 +36,7 @@ export default function PrivacyPolicy() {
                         <p className="text-foreground/80 mb-2">{t.privacyPolicy.usage.intro}</p>
                         <ul className="list-disc pl-5 space-y-2 text-foreground/80">
                             {t.privacyPolicy.usage.items.map((item, index) => (
-                                <li key={index}>{item}</li>
+                                <li key={item}>{item}</li>
                             ))}
                         </ul>
                     </section>

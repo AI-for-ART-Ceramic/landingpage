@@ -13,10 +13,10 @@ export default function TermsOfService() {
             <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-32">
                 <h1 className="text-4xl font-bold text-primary mb-8">{t.termsOfService.title}</h1>
                 <div className="space-y-6">
-                    <p className="text-sm text-muted-foreground">{t.termsOfService.lastUpdated} {new Date().toLocaleDateString()}</p>
+                    <p className="text-sm text-muted-foreground">{t.termsOfService.lastUpdated} 18/01/2026</p>
 
                     {t.termsOfService.sections.map((section, index) => (
-                        <section key={index}>
+                        <section key={section.title}>
                             <h2 className="text-2xl font-semibold text-secondary mb-4">{section.title}</h2>
                             <p className="text-foreground/80 leading-relaxed">
                                 {section.content}

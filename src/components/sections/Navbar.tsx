@@ -5,17 +5,19 @@ import { Sparkles, Menu, X, Globe } from "lucide-react";
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useLanguage } from "@/context/LanguageContext";
+import { usePathname } from "next/navigation";
 
 export default function Navbar() {
     const [isOpen, setIsOpen] = useState(false);
     const { t, language, toggleLanguage } = useLanguage();
+    const pathname = usePathname();
 
     const toggleMenu = () => setIsOpen(!isOpen);
 
     const navLinks = [
-        { name: t.navbar.features, href: "#features" },
-        { name: t.navbar.techStack, href: "#tech-stack" },
-        { name: t.navbar.useCases, href: "#use-cases" },
+        { name: t.navbar.features, href: pathname === "/" ? "#features" : "/#features" },
+        { name: t.navbar.techStack, href: pathname === "/" ? "#tech-stack" : "/#tech-stack" },
+        { name: t.navbar.useCases, href: pathname === "/" ? "#use-cases" : "/#use-cases" },
     ];
 
     return (
