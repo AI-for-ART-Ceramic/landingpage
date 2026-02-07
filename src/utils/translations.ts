@@ -68,6 +68,28 @@ export const translations = {
                 infra: "Infrastructure"
             }
         },
+        useCases: {
+            title: "Proven Success Stories",
+            subtitle: "See how businesses are transforming their customer experience with Lanna AI.",
+            items: [
+                {
+                    title: "E-Commerce Automation",
+                    description: "Reduced response time by 95% and increased conversion rates by automating product inquiries and orders on LINE OA.",
+                    tags: ["Retail", "Automation", "Sales"]
+                },
+                {
+                    title: "Real Estate Assistant",
+                    description: "Intelligent booking system that qualifies leads and schedules viewings automatically, available 24/7.",
+                    tags: ["Real Estate", "Booking", "CRM"]
+                },
+                {
+                    title: "Educational Consultant",
+                    description: "AI counselor providing instant course information and enrollment guidance to prospective students.",
+                    tags: ["Education", "Consulting", "Support"]
+                }
+            ],
+            readMore: "View Case Study"
+        },
         footer: {
             desc: "Intelligent customer analysis platform empowering businesses with AI-driven insights and automated engagement.",
             product: "Product",
@@ -218,6 +240,28 @@ export const translations = {
                 ai: "AI Core",
                 infra: "Infrastructure"
             }
+        },
+        useCases: {
+            title: "เรื่องราวความสำเร็จ",
+            subtitle: "ดูว่าธุรกิจต่างๆ เปลี่ยนแปลงประสบการณ์ลูกค้าด้วย Lanna AI ได้อย่างไร",
+            items: [
+                {
+                    title: "ระบบอัตโนมัติสำหรับอีคอมเมิร์ซ",
+                    description: "ลดเวลาตอบกลับได้ 95% และเพิ่มอัตราการปิดการขายด้วยการตอบคำถามและรับออเดอร์อัตโนมัติบน LINE OA",
+                    tags: ["ค้าปลีก", "อัตโนมัติ", "การขาย"]
+                },
+                {
+                    title: "ผู้ช่วยอสังหาริมทรัพย์",
+                    description: "ระบบจองคิวอัจฉริยะที่ช่วยคัดกรองลูกค้าและนัดหมายการเข้าชมโครงการได้อัตโนมัติ ตลอด 24 ชั่วโมง",
+                    tags: ["อสังหาริมทรัพย์", "การจอง", "CRM"]
+                },
+                {
+                    title: "ที่ปรึกษาด้านการศึกษา",
+                    description: "AI ให้คำปรึกษาที่สามารถแนะนำหลักสูตรและขั้นตอนการสมัครเรียนให้นักเรียนได้ทันที",
+                    tags: ["การศึกษา", "การให้คำปรึกษา", "บริการลูกค้า"]
+                }
+            ],
+            readMore: "ดูเคสตัวอย่าง"
         },
         footer: {
             desc: "แพลตฟอร์มวิเคราะห์ลูกค้าอัจฉริยะ ที่ช่วยขับเคลื่อนธุรกิจด้วยข้อมูลเชิงลึกจาก AI และการมีส่วนร่วมแบบอัตโนมัติ",
