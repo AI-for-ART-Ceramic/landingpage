@@ -1,3 +1,5 @@
+<img width="1919" height="865" alt="image" src="https://github.com/user-attachments/assets/365ed53f-8476-4eae-9a08-a6e4ede48047" />
+
 # 🎨 Lanna AI  – Landing Page
 
 Landing Page สำหรับโครงการ **Lanna AI**
