@@ -27,13 +27,13 @@ export default function UseCases() {
     const colors = ["emerald", "blue", "indigo"];
 
     return (
-        <section id="use-cases" className="py-24 bg-muted/30 relative">
+        <section id="use-cases" className="py-12 sm:py-16 lg:py-24 bg-muted/30 relative">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="text-center max-w-3xl mx-auto mb-16">
-                    <h2 className="text-3xl md:text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary mb-6">
+                <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-16">
+                    <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary mb-4 sm:mb-6">
                         {t.useCases.title}
                     </h2>
-                    <p className="text-lg text-muted-foreground">
+                    <p className="text-sm sm:text-base md:text-lg text-muted-foreground">
                         {t.useCases.subtitle}
                     </p>
                 </div>
@@ -43,7 +43,7 @@ export default function UseCases() {
                     initial="hidden"
                     whileInView="show"
                     viewport={{ once: true }}
-                    className="grid grid-cols-1 md:grid-cols-3 gap-8"
+                    className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 lg:gap-8"
                 >
                     {t.useCases.items.map((useCase, index) => {
                         const Icon = icons[index % icons.length];
@@ -53,7 +53,7 @@ export default function UseCases() {
                             <motion.div
                                 key={index}
                                 variants={item}
-                                className="group relative bg-white rounded-2xl p-8 shadow-sm hover:shadow-xl transition-all duration-300 border border-muted hover:border-primary/20"
+                                className="group relative bg-white rounded-2xl p-4 sm:p-6 lg:p-8 shadow-sm hover:shadow-xl transition-all duration-300 border border-muted hover:border-primary/20"
                             >
                                 <div className={`absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-10 transition-opacity`}>
                                     <Icon className={`w-24 h-24 text-${color}-600`} />

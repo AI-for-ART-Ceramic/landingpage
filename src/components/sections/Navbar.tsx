@@ -66,11 +66,12 @@ export default function Navbar() {
                     </div>
 
                     {/* Mobile Menu Button */}
-                    <div className="md:hidden flex items-center gap-4">
+                    <div className="md:hidden flex items-center gap-3">
                         <button
                             onClick={toggleLanguage}
-                            className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-muted/50 hover:bg-muted text-sm font-medium text-foreground transition-colors"
+                            className="flex items-center gap-1 px-2.5 py-1.5 rounded-full bg-muted/50 hover:bg-muted text-xs font-medium text-foreground transition-colors"
                         >
+                            <Globe className="w-3.5 h-3.5" />
                             <span>{language.toUpperCase()}</span>
                         </button>
 

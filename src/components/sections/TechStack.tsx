@@ -13,13 +13,13 @@ export default function TechStack() {
     ];
 
     return (
-        <section id="tech-stack" className="py-24 bg-muted/30">
+        <section id="tech-stack" className="py-12 sm:py-16 lg:py-24 bg-muted/30">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <h2 className="text-3xl md:text-4xl font-bold text-center text-foreground mb-16">
+                <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-center text-foreground mb-12 sm:mb-16">
                     {t.techStack.title}
                 </h2>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
                     {stack.map((group) => (
                         <div key={group.category} className="space-y-4">
                             <h3 className="text-lg font-semibold text-primary border-b border-muted pb-2">
