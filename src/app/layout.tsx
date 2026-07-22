@@ -1,11 +1,16 @@
 import type { Metadata, Viewport } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Manrope, Noto_Sans_Thai, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { LanguageProvider } from "@/context/LanguageContext";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const manrope = Manrope({
+  variable: "--font-manrope",
   subsets: ["latin"],
+});
+
+const notoSansThai = Noto_Sans_Thai({
+  variable: "--font-noto-sans-thai",
+  subsets: ["thai", "latin"],
 });
 
 const geistMono = Geist_Mono({
@@ -33,7 +38,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${manrope.variable} ${notoSansThai.variable} ${geistMono.variable} antialiased`}
       >
         <LanguageProvider>
           {children}

@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import { Sparkles } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
 
 export default function Footer() {
@@ -12,10 +11,16 @@ export default function Footer() {
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-8 sm:gap-12 mb-8 sm:mb-12">
                     <div className="col-span-1 md:col-span-2">
-                        <Link href="/" className="flex items-center space-x-2 mb-4">
-                            <Sparkles className="w-4 sm:w-5 h-4 sm:h-5 text-primary fill-current" />
+                        <Link href="/" className="flex items-center space-x-2 mb-4 group">
+                            <div className="p-1 bg-primary/10 border border-primary/20 rounded-md">
+                                <svg viewBox="0 0 24 24" className="w-4 h-4 text-primary fill-none stroke-[2] stroke-current" aria-hidden="true">
+                                    <path d="M12 2C10.5 2 9 4.5 9 6.5C9 7.8 8 9 6 10C4 11 3 13.5 3 16C3 19.3 7 22 12 22C17 22 21 19.3 21 16C21 13.5 20 11 18 10C16 9 15 7.8 15 6.5C15 4.5 13.5 2 12 2Z" />
+                                    <path d="M9 6.5H15" />
+                                    <path d="M12 22V20" />
+                                </svg>
+                            </div>
                             <span className="text-lg sm:text-xl font-bold text-foreground">
-                                Lanna AI
+                                Lanna <span className="text-primary font-extrabold font-serif">AI</span>
                             </span>
                         </Link>
                         <p className="text-muted-foreground text-xs sm:text-sm leading-relaxed max-w-xs">
