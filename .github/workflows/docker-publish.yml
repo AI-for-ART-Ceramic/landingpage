@@ -2,7 +2,7 @@ name: Deploy to Lanna AI
 
 on:
   push:
-    branches: [ "main"]
+    tags: ["v*"]
   workflow_dispatch:
 
 # Ensure only one deployment runs at a time to prevent race conditions
@@ -47,7 +47,8 @@ jobs:
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
           tags: |
-            type=raw,value=latest
+            type=semver,pattern={{version}}
+            type=semver,pattern={{major}}.{{minor}}
             type=sha,format=long
 
       - name: Build and push Docker image
@@ -74,8 +75,8 @@ jobs:
 
       - name: Pull Docker Image
         run: |
-          echo "⬇️ Pulling latest image..."
-          docker pull ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
+          echo "⬇️ Pulling image ${{ github.ref_name }}..."
+          docker pull ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.ref_name }}
 
       - name: Stop & Remove Old Container
         run: |
@@ -95,15 +96,15 @@ jobs:
             --name ${{ env.CONTAINER_NAME }} \
             -p ${{ env.PORT }}:${{ env.PORT }} \
             --restart unless-stopped \
-            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
-          
+            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.ref_name }}
+
           echo "   Container started with ID: $(docker ps -q -f name=${{ env.CONTAINER_NAME }})"
 
       - name: Health Check
         id: health-check
         run: |
           echo "🏥 Performing Health Check on port ${{ env.PORT }}..."
-          
+
           # Retry loop (Wait up to 60 seconds)
           MAX_RETRIES=12
           SLEEP_SECONDS=5
