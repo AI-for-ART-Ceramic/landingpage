@@ -44,7 +44,7 @@ export default function Footer() {
 
                 <div className="border-t border-muted-foreground/10 pt-6 sm:pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
                     <p className="text-muted-foreground text-[10px] sm:text-xs text-center md:text-left">
-                        © {new Date().getFullYear()} {t.footer.rights}
+                        © {new Date().getFullYear()} {t.footer.rights} | v{process.env.NEXT_PUBLIC_VERSION || 'dev'}
                     </p>
                 </div>
             </div>
