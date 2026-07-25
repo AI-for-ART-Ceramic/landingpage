@@ -8,6 +8,9 @@ RUN npm ci
 
 # Copy โค้ดทั้งหมดและทำการ Build
 COPY . .
+
+ARG NEXT_PUBLIC_VERSION=dev
+ENV NEXT_PUBLIC_VERSION=$NEXT_PUBLIC_VERSION
 RUN npm run build
 
 # 2. Production Stage (Runner)
