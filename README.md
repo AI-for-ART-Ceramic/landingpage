@@ -1,4 +1,5 @@
-<img width="1919" height="865" alt="image" src="https://github.com/user-attachments/assets/365ed53f-8476-4eae-9a08-a6e4ede48047" />
+<img width="1533" height="698" alt="image" src="./docs/images/v0.1.8.png" />
+
 
 # 🎨 Lanna AI  – Landing Page
 

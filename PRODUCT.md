@@ -32,3 +32,27 @@ Warm & trustworthy. Grounded in Lanna heritage (Northern Thailand) and ceramic-a
 ## Accessibility & Inclusion
 
 WCAG AA baseline: solid text contrast (especially colored text/icons on the ivory background and white cards), full keyboard navigation, `prefers-reduced-motion` alternatives for all Framer Motion reveal animations, and properly labeled bilingual controls (e.g. the language toggle needs an accessible name in both languages).
+
+## Current Implementation
+
+Single-page Next.js / React site (Tailwind CSS v4) at `/`, plus standalone `/privacy-policy` and `/terms-of-service` pages. Bilingual EN/TH via a `LanguageContext` toggle in the navbar (globe icon) — no locale routing, all copy lives in `src/utils/translations.ts`.
+
+**Page structure:** Navbar → Hero → Features → Use Cases → Tech Stack → Footer.
+
+- **Navbar** — sticky pill nav, anchor links to Features / Tech Stack / Use Cases, language toggle, "Launch Ceramix" CTA → `ceramix.lanna-ai.com` (desktop); mobile menu adds "Launch App" → `chat.lanna-ai.com`.
+- **Hero** — badge + bilingual headline/description + "Get Started Now" (→ Ceramix) and "Explore Features" (→ `#features`) CTAs. Interactive animated demo panel with two tabs: an auto-advancing simulated LINE conversation for a ceramics shop ending in a Gemini-generated product image, and a mock sentiment/sales analytics dashboard (total sales, conversion rate, sentiment gauge, live per-channel feed for LINE OA / Facebook Messenger / Instagram Direct).
+- **Features** — 6 cards: AI Chatbot (24/7 + context-aware smart buying agent), Business Intelligence (orders, peak times, demographics), Generative AI Images (Google Gemini), Smart Dashboard, Enterprise Security (verified LINE/Facebook webhooks), Strategic Recommendations.
+- **Use Cases** — 3 vertical stories matching the target personas, each with a headline metric: E-Commerce Automation on LINE OA (95% response-time cut), Real Estate Assistant (3.2x qualified leads), Educational Consultant (87% student conversion). "View Case Study" button is currently decorative — not yet linked to real case-study content.
+- **Tech Stack** — publicly displays the product's stack as a trust signal: Frontend (Next.js, React, Tailwind CSS, SWR, Framer Motion), Backend (Python, FastAPI, PostgreSQL, Redis, SQLAlchemy), AI Core (Google Gemini, OpenAI GPT-4o, LangChain, Sentiment NLP), Infrastructure (Docker, Nginx, webhook security, microservices).
+- **Footer** — brick-red band; Product links (Features, Technology, Login → `chat.lanna-ai.com`), Legal links (Privacy Policy, Terms of Service, Data Deletion → mailto `aiforartceramic@gmail.com`), version tag.
+- **Legal pages** — bilingual Privacy Policy and Terms of Service.
+
+**Visual/brand system (implemented):**
+
+- Palette: ivory background `#FAFAEC`, jet-black foreground `#2B333B`, brick-red primary `#B93327`, gold secondary `#FFD609`, jungle-green accent `#5CAD5C` — deliberately warm, not the cold-blue AI-SaaS default.
+- Type: Google Sans (Latin) + Noto Sans Thai, bold weight and tight tracking on headings.
+- Ceramic-craft motifs: hand-drawn SVG vessel shapes (vase/urn/bowl/cup/tall) as decorative marks, a recurring "conversation path" line-and-dot motif linking sections, a clay-textured dot-grid background, and "clay button" CTAs with a solid drop-shadow lip instead of a soft SaaS shadow — heritage shows up structurally, not as literal iconography.
+- Motion: GSAP entrance reveals + Framer Motion tab transitions, all gated behind `prefers-reduced-motion` (see `globals.css`).
+- Accessibility: keyboard-operable ARIA tabs in the Hero demo, bilingual-labeled language toggle, visible focus rings, reduced-motion fallback.
+
+**Not yet built:** dedicated case-study pages behind "View Case Study"; all dashboard/chat mockup content is static/simulated, not wired to live data.

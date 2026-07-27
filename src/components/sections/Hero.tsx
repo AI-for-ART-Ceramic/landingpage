@@ -168,9 +168,9 @@ export default function Hero() {
             </div>
 
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-                <div className="grid grid-cols-1 items-center gap-14 lg:grid-cols-12 lg:gap-10">
+                <div className="grid grid-cols-1 items-center gap-14 md:grid-cols-12 md:gap-10">
                     {/* Left Column: Hero Text */}
-                    <div className="space-y-7 text-center lg:col-span-5 lg:text-left">
+                    <div className="space-y-7 text-center md:col-span-5 md:text-left">
                         {/* Live Badge */}
                         <div data-hero-badge className="eyebrow-clay inline-flex items-center gap-2">
                             <span className="flex h-2 w-2 rounded-full bg-primary" />
@@ -187,18 +187,18 @@ export default function Hero() {
                             }`}
                         >
                             {t.hero.titlePrefix} <br className="hidden sm:inline" />
-                            <span className={`mt-3 block font-extrabold text-primary ${language === "en" ? "font-serif italic" : ""}`}>
+                            <span className="mt-3 block font-extrabold italic text-primary">
                                 {t.hero.titleHighlight}
                             </span>
                         </h1>
 
                         {/* Description */}
-                        <p data-hero-copy className="mx-auto max-w-xl text-base leading-relaxed text-muted-foreground sm:text-lg lg:mx-0">
+                        <p data-hero-copy className="mx-auto max-w-xl text-base leading-relaxed text-muted-foreground sm:text-lg md:mx-0">
                             {t.hero.description}
                         </p>
 
                         {/* CTAs */}
-                        <div data-hero-copy className="flex flex-col items-center justify-center gap-4 sm:flex-row lg:justify-start">
+                        <div data-hero-copy className="flex flex-col items-center justify-center gap-4 sm:flex-row md:justify-start">
                             <a
                                 href="https://ceramix.lanna-ai.com"
                                 className="cta-clay group w-full sm:w-auto"
@@ -216,7 +216,7 @@ export default function Hero() {
                     </div>
 
                     {/* Right Column: Interactive Mockup Panel */}
-                    <div data-testid="hero-demo-column" data-hero-demo className="hero-demo-column hero-demo-gutter relative mx-auto w-full max-w-2xl lg:col-span-7 lg:max-w-none lg:pl-20">
+                    <div data-testid="hero-demo-column" data-hero-demo className="hero-demo-column hero-demo-gutter relative mx-auto w-full max-w-2xl md:col-span-7 md:max-w-none md:pl-20">
                         <div data-hero-orbit className="absolute -left-8 -top-8 hidden h-24 w-24 rounded-full border-[12px] border-secondary/80 lg:block" aria-hidden="true" />
                         <div data-hero-orbit className="absolute -bottom-8 right-12 hidden h-16 w-16 rounded-full bg-accent/80 lg:block" aria-hidden="true" />
                         {/* Decorative clay border container */}
