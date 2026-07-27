@@ -1,105 +1,142 @@
 "use client";
 
-import {
-  BarChart,
-  Image as ImageIcon,
-  LayoutDashboard,
-  MessageSquare,
-  ShieldCheck,
-  Zap,
-} from "lucide-react";
-import { useRef } from "react";
+import { motion } from "framer-motion";
+import { MessageSquare, BarChart, Image as ImageIcon, LayoutDashboard, ShieldCheck, Zap } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
-import { useGsapReveal } from "@/hooks/useGsapReveal";
-import {
-  CeramicMark,
-  ConversationPath,
-  InsightRing,
-} from "@/components/visuals/CeramicVisuals";
-import { SectionDivider } from "@/components/visuals/SectionDivider";
 
-const icons = [
-  MessageSquare,
-  BarChart,
-  ImageIcon,
-  LayoutDashboard,
-  ShieldCheck,
-  Zap,
-];
+const container = {
+    hidden: { opacity: 0 },
+    show: {
+        opacity: 1,
+        transition: {
+            staggerChildren: 0.08,
+        },
+    },
+};
+
+const item = {
+    hidden: { opacity: 0, y: 15 },
+    show: { opacity: 1, y: 0 },
+};
+
+// Static color mapping to prevent dynamic Tailwind class resolution failures
+const colorMap: Record<string, { bg: string; bgHover: string; text: string }> = {
+    amber: {
+        bg: "bg-amber-500/10",
+        bgHover: "group-hover:bg-amber-500/20",
+        text: "text-amber-600",
+    },
+    sky: {
+        bg: "bg-sky-500/10",
+        bgHover: "group-hover:bg-sky-500/20",
+        text: "text-sky-600",
+    },
+    rose: {
+        bg: "bg-rose-500/10",
+        bgHover: "group-hover:bg-rose-500/20",
+        text: "text-rose-600",
+    },
+    violet: {
+        bg: "bg-violet-500/10",
+        bgHover: "group-hover:bg-violet-500/20",
+        text: "text-violet-600",
+    },
+    emerald: {
+        bg: "bg-emerald-500/10",
+        bgHover: "group-hover:bg-emerald-500/20",
+        text: "text-emerald-600",
+    },
+    orange: {
+        bg: "bg-orange-500/10",
+        bgHover: "group-hover:bg-orange-500/20",
+        text: "text-orange-600",
+    },
+};
 
 export default function Features() {
-  const { t, language } = useLanguage();
-  const sectionRef = useRef<HTMLElement>(null);
+    const { t } = useLanguage();
 
-  useGsapReveal(sectionRef, { stagger: 0.08 });
+    const features = [
+        {
+            title: t.features.items[0].title,
+            description: t.features.items[0].description,
+            icon: MessageSquare,
+            color: "amber",
+        },
+        {
+            title: t.features.items[1].title,
+            description: t.features.items[1].description,
+            icon: BarChart,
+            color: "sky",
+        },
+        {
+            title: t.features.items[2].title,
+            description: t.features.items[2].description,
+            icon: ImageIcon,
+            color: "rose",
+        },
+        {
+            title: t.features.items[3].title,
+            description: t.features.items[3].description,
+            icon: LayoutDashboard,
+            color: "violet",
+        },
+        {
+            title: t.features.items[4].title,
+            description: t.features.items[4].description,
+            icon: ShieldCheck,
+            color: "emerald",
+        },
+        {
+            title: t.features.items[5].title,
+            description: t.features.items[5].description,
+            icon: Zap,
+            color: "orange",
+        },
+    ];
 
-  return (
-    <section
-      id="features"
-      ref={sectionRef}
-      data-language={language}
-      className="section-studio bg-muted/20"
-    >
-      <div className="pointer-events-none absolute inset-0" aria-hidden="true">
-        <InsightRing data-gsap-float className="absolute -left-24 top-24 hidden h-72 w-72 text-primary/10 lg:block" />
-        <CeramicMark
-          variant="bowl"
-          data-gsap-float
-          className="absolute -right-12 bottom-24 hidden h-64 w-64 rotate-[-9deg] text-secondary/35 lg:block"
-        />
-      </div>
+    return (
+        <section id="features" className="py-16 sm:py-20 lg:py-28 bg-background relative overflow-hidden">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                <div className="text-center max-w-3xl mx-auto mb-16 sm:mb-20">
+                    <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-4 sm:mb-6">
+                        {t.features.title}
+                    </h2>
+                    <p className="text-base sm:text-lg text-muted-foreground leading-relaxed">
+                        {t.features.subtitle}
+                    </p>
+                </div>
 
-      <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="grid gap-14 lg:grid-cols-[0.8fr_1.2fr] lg:items-start lg:gap-20">
-          <div className="lg:self-start">
-            <h2
-              data-gsap-reveal
-              className="section-title-studio max-w-2xl text-foreground"
-            >
-              {t.features.title}
-            </h2>
-            <p
-              data-gsap-reveal
-              className="mt-6 max-w-xl text-base leading-relaxed text-muted-foreground sm:text-lg"
-            >
-              {t.features.subtitle}
-            </p>
-            <ConversationPath className="mt-8 w-full max-w-md text-primary/45" />
-          </div>
-
-          <div>
-            {t.features.items.map((feature, index) => {
-              const Icon = icons[index] ?? MessageSquare;
-
-              return (
-                <article
-                  key={feature.title}
-                  data-gsap-reveal
-                  className="feature-flow-card group"
+                <motion.div
+                    key={t.features.title}
+                    variants={container}
+                    initial="hidden"
+                    whileInView="show"
+                    viewport={{ once: true }}
+                    className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8"
                 >
-                  <div className="feature-index">
-                    {String(index + 1).padStart(2, "0")}
-                  </div>
-                  <div className="grid gap-4 sm:grid-cols-[1fr_auto] sm:items-start">
-                    <div>
-                      <h3 className="text-xl font-bold tracking-tight text-foreground sm:text-2xl">
-                        {feature.title}
-                      </h3>
-                      <p className="mt-3 max-w-2xl text-sm leading-relaxed text-muted-foreground sm:text-base">
-                        {feature.description}
-                      </p>
-                    </div>
-                    <div className="grid h-12 w-12 place-items-center rounded-full bg-primary text-white shadow-[0_7px_0_var(--primary-hover)] transition-transform duration-300 group-hover:-translate-y-1">
-                      <Icon className="h-5 w-5" aria-hidden="true" />
-                    </div>
-                  </div>
-                </article>
-              );
-            })}
-          </div>
-        </div>
-      </div>
-      <SectionDivider data-gsap-divider fill="var(--foreground)" variant="swell" />
-    </section>
-  );
+                    {features.map((feature) => {
+                        const colors = colorMap[feature.color] || colorMap.amber;
+                        return (
+                            <motion.div
+                                key={feature.title}
+                                variants={item}
+                                className="p-6 sm:p-8 rounded-xl bg-white border border-muted hover:border-primary/30 hover:shadow-md transition-all duration-300 group shadow-sm flex flex-col justify-between"
+                            >
+                                <div>
+                                    <div className={`w-12 h-12 rounded-lg ${colors.bg} ${colors.bgHover} flex items-center justify-center mb-6 transition-colors duration-300`}>
+                                        <feature.icon className={`w-6 h-6 ${colors.text} group-hover:scale-105 transition-transform duration-300`} />
+                                    </div>
+                                    <h3 className="text-xl font-bold text-foreground mb-3">{feature.title}</h3>
+                                    <p className="text-muted-foreground leading-relaxed text-sm">
+                                        {feature.description}
+                                    </p>
+                                </div>
+                            </motion.div>
+                        );
+                    })}
+                </motion.div>
+            </div>
+        </section>
+    );
 }

@@ -21,12 +21,12 @@ export default function Navbar() {
     ];
 
     return (
-        <nav className="fixed left-0 right-0 top-3 z-50 px-3 sm:top-4 sm:px-5">
-            <div className="mx-auto max-w-7xl rounded-full border border-foreground/10 bg-background/85 px-4 shadow-[0_12px_38px_rgba(43,51,59,0.09)] backdrop-blur-xl sm:px-6">
+        <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-muted">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex items-center justify-between h-16">
                     {/* Logo */}
-                    <Link href="/" className="group flex items-center space-x-2">
-                        <div className="rounded-full border border-primary/20 bg-primary/10 p-1.5 transition-transform duration-300 group-hover:-rotate-6 group-hover:scale-105">
+                    <Link href="/" className="flex items-center space-x-2 group">
+                        <div className="p-1.5 bg-primary/10 border border-primary/20 rounded-lg group-hover:scale-105 transition-transform duration-300">
                             <svg viewBox="0 0 24 24" className="w-5 h-5 text-primary fill-none stroke-[2] stroke-current" aria-hidden="true">
                                 <path d="M12 2C10.5 2 9 4.5 9 6.5C9 7.8 8 9 6 10C4 11 3 13.5 3 16C3 19.3 7 22 12 22C17 22 21 19.3 21 16C21 13.5 20 11 18 10C16 9 15 7.8 15 6.5C15 4.5 13.5 2 12 2Z" />
                                 <path d="M9 6.5H15" />
@@ -44,7 +44,7 @@ export default function Navbar() {
                             <Link
                                 key={link.name}
                                 href={link.href}
-                                className="nav-link text-sm font-medium text-muted-foreground"
+                                className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors"
                             >
                                 {link.name}
                             </Link>
@@ -54,17 +54,17 @@ export default function Navbar() {
                         <button
                             onClick={toggleLanguage}
                             aria-label={language === 'en' ? "Switch to Thai language" : "สลับเป็นภาษาอังกฤษ"}
-                            className="flex items-center gap-1.5 rounded-full border border-foreground/10 bg-paper px-3 py-1.5 text-sm font-medium text-foreground transition-colors hover:border-secondary-hover hover:bg-secondary"
+                            className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-muted/50 hover:bg-muted text-sm font-medium text-foreground transition-colors"
                         >
                             <Globe className="w-4 h-4" />
                             <span>{language === 'en' ? 'TH' : 'EN'}</span>
                         </button>
 
                         <a
-                            href="https://ceramix.lanna-ai.com"
+                            href="http://Ceramix.lanna-ai.com"
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="rounded-full border border-primary-hover bg-primary px-4 py-2 text-sm font-semibold text-white shadow-[0_5px_0_var(--primary-hover)] transition-all hover:-translate-y-0.5 hover:bg-primary-hover"
+                            className="px-4 py-2 text-sm font-semibold text-white bg-primary rounded-full hover:bg-primary-hover transition-colors shadow-sm"
                         >
                             {t.navbar.launchCeramix}
                         </a>
@@ -75,7 +75,7 @@ export default function Navbar() {
                         <button
                             onClick={toggleLanguage}
                             aria-label={language === 'en' ? "Switch to Thai language" : "สลับเป็นภาษาอังกฤษ"}
-                            className="flex items-center gap-1 rounded-full border border-foreground/10 bg-paper px-2.5 py-1.5 text-xs font-medium text-foreground transition-colors hover:bg-secondary"
+                            className="flex items-center gap-1 px-2.5 py-1.5 rounded-full bg-muted/50 hover:bg-muted text-xs font-medium text-foreground transition-colors"
                         >
                             <Globe className="w-3.5 h-3.5" />
                             <span>{language.toUpperCase()}</span>
@@ -83,8 +83,6 @@ export default function Navbar() {
 
                         <button
                             onClick={toggleMenu}
-                            aria-label={isOpen ? "Close navigation menu" : "Open navigation menu"}
-                            aria-expanded={isOpen}
                             className="p-2 text-muted-foreground hover:text-foreground"
                         >
                             {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -100,7 +98,7 @@ export default function Navbar() {
                         initial={{ opacity: 0, height: 0 }}
                         animate={{ opacity: 1, height: "auto" }}
                         exit={{ opacity: 0, height: 0 }}
-                        className="mt-2 overflow-hidden rounded-3xl border border-foreground/10 bg-background shadow-xl md:hidden"
+                        className="md:hidden bg-background border-b border-muted overflow-hidden"
                     >
                         <div className="px-4 pt-2 pb-6 space-y-2">
                             {navLinks.map((link) => (
@@ -114,7 +112,7 @@ export default function Navbar() {
                                 </Link>
                             ))}
                             <a
-                                href="https://chat.lanna-ai.com"
+                                href="http://chat.lanna-ai.com"
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="block w-full text-center mt-4 px-4 py-3 font-semibold text-white bg-primary rounded-lg hover:bg-primary-hover transition-colors"

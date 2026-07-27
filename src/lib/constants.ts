@@ -3,7 +3,7 @@ export const SITE_CONFIG = {
     description: "Transform Conversations into Business Intelligence",
     links: {
         ceramix: "https://ceramix.lanna-ai.com",
-        chat: "https://chat.lanna-ai.com",
+        chat: "http://chat.lanna-ai.com",
     },
     navLinks: [
         { name: "Features", href: "#features" },

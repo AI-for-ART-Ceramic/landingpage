@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Manrope, Noto_Sans_Thai, Noto_Serif_Thai, Geist_Mono } from "next/font/google";
+import { Manrope, Noto_Sans_Thai, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { LanguageProvider } from "@/context/LanguageContext";
 
@@ -11,12 +11,6 @@ const manrope = Manrope({
 const notoSansThai = Noto_Sans_Thai({
   variable: "--font-noto-sans-thai",
   subsets: ["thai", "latin"],
-});
-
-const notoSerifThai = Noto_Serif_Thai({
-  variable: "--font-noto-serif-thai",
-  subsets: ["thai", "latin"],
-  weight: ["500", "600", "700"],
 });
 
 const geistMono = Geist_Mono({
@@ -44,7 +38,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${manrope.variable} ${notoSansThai.variable} ${notoSerifThai.variable} ${geistMono.variable} antialiased`}
+        className={`${manrope.variable} ${notoSansThai.variable} ${geistMono.variable} antialiased`}
       >
         <LanguageProvider>
           {children}

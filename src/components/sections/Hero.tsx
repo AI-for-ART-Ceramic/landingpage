@@ -1,56 +1,21 @@
 "use client";
 
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowRight, Bot, BarChart3, ShieldCheck, Send } from "lucide-react";
+import { ArrowRight, Bot, BarChart3, ShieldCheck, Send, Check, MessageSquare } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
-import { useState, useEffect, useRef } from "react";
-import type { KeyboardEvent } from "react";
-import { useGSAP } from "@gsap/react";
-import gsap from "gsap";
-import { CeramicMark, InsightRing } from "@/components/visuals/CeramicVisuals";
-
-gsap.registerPlugin(useGSAP);
+import { useState, useEffect } from "react";
 
 export default function Hero() {
     const { t, language } = useLanguage();
     const [activeTab, setActiveTab] = useState<"chat" | "dashboard">("chat");
-    const [chatStep, setChatStep] = useState(1);
-    const heroRef = useRef<HTMLElement>(null);
-    const chatTabRef = useRef<HTMLButtonElement>(null);
-    const dashboardTabRef = useRef<HTMLButtonElement>(null);
-
-    const activateTab = (tab: "chat" | "dashboard") => {
-        setActiveTab(tab);
-        if (tab === "chat") setChatStep(1);
-        (tab === "chat" ? chatTabRef : dashboardTabRef).current?.focus();
-    };
-
-    const handleTabKeyDown = (
-        event: KeyboardEvent<HTMLButtonElement>,
-        currentTab: "chat" | "dashboard",
-    ) => {
-        if (!["ArrowLeft", "ArrowRight", "Home", "End"].includes(event.key)) return;
-
-        event.preventDefault();
-
-        const nextTab =
-            event.key === "Home"
-                ? "chat"
-                : event.key === "End"
-                  ? "dashboard"
-                  : currentTab === "chat"
-                    ? "dashboard"
-                    : "chat";
-
-        activateTab(nextTab);
-    };
+    const [chatStep, setChatStep] = useState(0);
 
     // Auto-advance chat simulation steps
     useEffect(() => {
         if (activeTab !== "chat") return;
         
         const timer = setInterval(() => {
-            setChatStep((prev) => (prev >= 4 ? 1 : prev + 1));
+            setChatStep((prev) => (prev + 1) % 5);
         }, 3500);
 
         return () => clearInterval(timer);
@@ -110,105 +75,50 @@ export default function Hero() {
         }
     }[language];
 
-    useGSAP(
-        () => {
-            const media = gsap.matchMedia();
-
-            media.add("(prefers-reduced-motion: no-preference)", () => {
-                const timeline = gsap.timeline({ defaults: { ease: "power3.out" } });
-
-                timeline
-                    .from("[data-hero-badge]", { autoAlpha: 0, y: 18, duration: 0.5 })
-                    .from("[data-hero-copy]", { autoAlpha: 0, y: 38, duration: 0.85, stagger: 0.1 }, "-=0.2")
-                    .from("[data-hero-demo]", { autoAlpha: 0, y: 48, rotate: 1.5, duration: 1 }, "-=0.65")
-                    .from("[data-hero-orbit]", { autoAlpha: 0, scale: 0.7, duration: 0.8, stagger: 0.12 }, "-=0.65");
-
-                gsap.to("[data-hero-orbit='slow']", {
-                    rotate: 360,
-                    duration: 40,
-                    repeat: -1,
-                    ease: "none",
-                    transformOrigin: "50% 50%",
-                });
-
-                gsap.to("[data-hero-vessel]", {
-                    y: -10,
-                    rotate: -1.5,
-                    duration: 3.4,
-                    repeat: -1,
-                    yoyo: true,
-                    ease: "sine.inOut",
-                });
-            });
-
-            return () => media.revert();
-        },
-        { scope: heroRef },
-    );
-
 
     return (
-        <section
-            ref={heroRef}
-            data-testid="hero-section"
-            data-language={language}
-            className="hero-studio relative overflow-hidden bg-background pb-20 pt-28 sm:pb-24 sm:pt-36 lg:min-h-[940px] lg:pb-32 lg:pt-40"
-        >
+        <section className="relative pt-24 pb-16 sm:pt-32 sm:pb-20 lg:pt-36 lg:pb-28 overflow-hidden bg-background">
             {/* Textured background and ambient blobs */}
-            <div className="pointer-events-none absolute inset-0">
-                <div className="clay-grid absolute inset-0 opacity-45" />
-                <div className="absolute -right-24 top-24 h-[420px] w-[420px] rounded-full border border-primary/15 sm:h-[620px] sm:w-[620px]" />
-                <div className="absolute -right-8 top-40 h-[300px] w-[300px] rounded-full border border-secondary/60 sm:h-[470px] sm:w-[470px]" />
-                <div data-hero-orbit="slow" className="absolute -right-10 top-28 hidden h-[560px] w-[560px] lg:block">
-                    <InsightRing className="h-full w-full text-primary/20" />
-                </div>
-                <div data-hero-vessel className="absolute right-[8%] top-28 hidden h-40 w-40 lg:block">
-                    <CeramicMark className="h-full w-full text-primary/10" />
-                </div>
+            <div className="absolute inset-0 pointer-events-none opacity-40">
+                <div className="absolute top-10 right-0 w-[300px] lg:w-[600px] h-[300px] lg:h-[600px] bg-secondary/15 rounded-full blur-[100px] lg:blur-[140px]" />
+                <div className="absolute bottom-10 left-0 w-[250px] lg:w-[500px] h-[250px] lg:h-[500px] bg-primary/10 rounded-full blur-[100px] lg:blur-[140px]" />
             </div>
 
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-                <div className="grid grid-cols-1 items-center gap-14 lg:grid-cols-12 lg:gap-10">
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
                     {/* Left Column: Hero Text */}
-                    <div className="space-y-7 text-center lg:col-span-5 lg:text-left">
+                    <div className="lg:col-span-6 space-y-6 sm:space-y-8 text-center lg:text-left">
                         {/* Live Badge */}
-                        <div data-hero-badge className="eyebrow-clay inline-flex items-center gap-2">
-                            <span className="flex h-2 w-2 rounded-full bg-primary" />
+                        <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-xs sm:text-sm font-semibold text-primary">
+                            <span className="flex h-2 w-2 rounded-full bg-primary animate-pulse" />
                             <span>{t.hero.badge}</span>
                         </div>
 
                         {/* Title */}
-                        <h1
-                            data-hero-copy
-                            className={`hero-title-contained ${language === "th" ? "hero-title-thai" : ""} max-w-[27rem] font-bold text-foreground ${
-                                language === "th"
-                                    ? "text-[clamp(2.25rem,10vw,4.5rem)] leading-[1.08] tracking-[-0.045em]"
-                                    : "text-[clamp(2.7rem,4.8vw,4.8rem)] leading-[0.96] tracking-[-0.055em]"
-                            }`}
-                        >
+                        <h1 className="text-3xl sm:text-5xl md:text-6xl font-bold text-foreground leading-tight tracking-tight">
                             {t.hero.titlePrefix} <br className="hidden sm:inline" />
-                            <span className={`mt-3 block font-extrabold text-primary ${language === "en" ? "font-serif italic" : ""}`}>
+                            <span className="text-primary font-serif font-extrabold block mt-2">
                                 {t.hero.titleHighlight}
                             </span>
                         </h1>
 
                         {/* Description */}
-                        <p data-hero-copy className="mx-auto max-w-xl text-base leading-relaxed text-muted-foreground sm:text-lg lg:mx-0">
+                        <p className="text-base sm:text-lg text-muted-foreground max-w-xl mx-auto lg:mx-0 leading-relaxed text-balance">
                             {t.hero.description}
                         </p>
 
                         {/* CTAs */}
-                        <div data-hero-copy className="flex flex-col items-center justify-center gap-4 sm:flex-row lg:justify-start">
+                        <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
                             <a
                                 href="https://ceramix.lanna-ai.com"
-                                className="cta-clay group w-full sm:w-auto"
+                                className="w-full sm:w-auto px-8 py-3.5 text-white bg-primary rounded-full font-bold hover:bg-primary-hover transition-all flex items-center justify-center gap-2 shadow-md hover:-translate-y-0.5"
                             >
                                 {t.hero.getStarted}
                                 <ArrowRight className="w-4 h-4" />
                             </a>
                             <a
                                 href="#features"
-                                className="cta-clay-secondary w-full text-center sm:w-auto"
+                                className="w-full sm:w-auto px-8 py-3.5 text-foreground bg-white border border-muted rounded-full font-semibold hover:bg-muted/50 transition-all text-center"
                             >
                                 {t.hero.explore}
                             </a>
@@ -216,25 +126,16 @@ export default function Hero() {
                     </div>
 
                     {/* Right Column: Interactive Mockup Panel */}
-                    <div data-testid="hero-demo-column" data-hero-demo className="hero-demo-column hero-demo-gutter relative mx-auto w-full max-w-2xl lg:col-span-7 lg:max-w-none lg:pl-20">
-                        <div data-hero-orbit className="absolute -left-8 -top-8 hidden h-24 w-24 rounded-full border-[12px] border-secondary/80 lg:block" aria-hidden="true" />
-                        <div data-hero-orbit className="absolute -bottom-8 right-12 hidden h-16 w-16 rounded-full bg-accent/80 lg:block" aria-hidden="true" />
+                    <div className="lg:col-span-6 relative w-full max-w-2xl mx-auto lg:max-w-none">
                         {/* Decorative clay border container */}
-                        <div className="studio-demo-shell relative overflow-hidden">
+                        <div className="relative rounded-2xl bg-white border border-muted p-2 shadow-xl shadow-foreground/5 overflow-hidden">
                             {/* Tabs Header */}
-                            <div role="tablist" aria-label="Lanna AI demo" className="studio-demo-tabs">
+                            <div className="flex border-b border-muted bg-muted/20 p-1.5 rounded-t-xl gap-2">
                                 <button
-                                    ref={chatTabRef}
-                                    onClick={() => activateTab("chat")}
-                                    onKeyDown={(event) => handleTabKeyDown(event, "chat")}
-                                    role="tab"
-                                    id="chat-tab"
-                                    aria-controls="chat-panel"
-                                    aria-selected={activeTab === "chat"}
-                                    tabIndex={activeTab === "chat" ? 0 : -1}
-                                    className={`studio-demo-tab ${
+                                    onClick={() => { setActiveTab("chat"); setChatStep(0); }}
+                                    className={`flex-1 flex items-center justify-center gap-2 py-2 px-3 text-xs sm:text-sm font-semibold rounded-lg transition-all ${
                                         activeTab === "chat"
-                                            ? "studio-demo-tab-active"
+                                            ? "bg-white text-primary shadow-sm border border-muted"
                                             : "text-muted-foreground hover:text-foreground"
                                     }`}
                                 >
@@ -242,17 +143,10 @@ export default function Hero() {
                                     {mockupT.chatTab}
                                 </button>
                                 <button
-                                    ref={dashboardTabRef}
-                                    onClick={() => activateTab("dashboard")}
-                                    onKeyDown={(event) => handleTabKeyDown(event, "dashboard")}
-                                    role="tab"
-                                    id="dashboard-tab"
-                                    aria-controls="dashboard-panel"
-                                    aria-selected={activeTab === "dashboard"}
-                                    tabIndex={activeTab === "dashboard" ? 0 : -1}
-                                    className={`studio-demo-tab ${
+                                    onClick={() => setActiveTab("dashboard")}
+                                    className={`flex-1 flex items-center justify-center gap-2 py-2 px-3 text-xs sm:text-sm font-semibold rounded-lg transition-all ${
                                         activeTab === "dashboard"
-                                            ? "studio-demo-tab-active"
+                                            ? "bg-white text-primary shadow-sm border border-muted"
                                             : "text-muted-foreground hover:text-foreground"
                                     }`}
                                 >
@@ -262,18 +156,15 @@ export default function Hero() {
                             </div>
 
                             {/* Tab Body */}
-                            <div className="studio-demo-body">
+                            <div className="bg-white min-h-[380px] p-4 flex flex-col justify-between">
                                 <AnimatePresence mode="wait">
                                     {activeTab === "chat" ? (
                                         <motion.div
                                             key="chat"
-                                            role="tabpanel"
-                                            id="chat-panel"
-                                            aria-labelledby="chat-tab"
                                             initial={{ opacity: 0 }}
                                             animate={{ opacity: 1 }}
                                             exit={{ opacity: 0 }}
-                                            className="flex min-h-[430px] flex-col justify-between sm:min-h-[500px]"
+                                            className="flex flex-col h-[340px] justify-between"
                                         >
                                             {/* Chat Header */}
                                             <div className="flex items-center justify-between pb-3 border-b border-muted mb-3">
@@ -296,7 +187,7 @@ export default function Hero() {
                                             </div>
 
                                             {/* Chat Messages Log */}
-                                            <div className="flex-1 space-y-3 pr-1 text-xs select-none">
+                                            <div className="flex-1 overflow-y-auto space-y-3 pr-1 text-xs select-none">
                                                 {/* Customer message - steps 1+ */}
                                                 {chatStep >= 1 && (
                                                     <motion.div
@@ -357,14 +248,14 @@ export default function Hero() {
                                                         </div>
                                                         <div className="bg-primary/5 border border-primary/10 text-foreground p-2 rounded-2xl rounded-tl-none max-w-[80%] space-y-2">
                                                             <p>{mockupT.botReply3}</p>
-                                                            <div className="relative aspect-video max-h-[190px] overflow-hidden rounded-lg border border-muted bg-muted shadow-sm sm:max-h-[220px]">
+                                                            <div className="relative rounded-lg overflow-hidden border border-muted shadow-sm aspect-video bg-muted">
                                                                 {/* eslint-disable-next-line @next/next/no-img-element */}
                                                                 <img
                                                                     src="https://images.unsplash.com/photo-1578749556568-bc2c40e68b61?auto=format&fit=crop&w=600&q=80"
                                                                     alt="Ceramic Celadon Cup with Gold Trim Preview"
-                                                                    className="h-full w-full object-cover"
+                                                                    className="object-cover w-full h-full"
                                                                 />
-                                                                <div className="absolute right-2 top-2 rounded-full bg-foreground/80 px-2 py-0.5 text-[9px] font-bold text-background backdrop-blur-sm">
+                                                                <div className="absolute top-2 right-2 px-2 py-0.5 rounded-full bg-black/60 text-[9px] text-white font-bold backdrop-blur-sm">
                                                                     Gemini AI
                                                                 </div>
                                                             </div>
@@ -378,7 +269,7 @@ export default function Hero() {
                                                 <div className="flex-1 bg-muted/50 rounded-full px-4 py-2 text-xs text-muted-foreground border border-muted">
                                                     {mockupT.inputPlaceholder}
                                                 </div>
-                                                <button aria-label={language === "en" ? "Send message" : "ส่งข้อความ"} className="p-2 bg-primary rounded-full text-white">
+                                                <button aria-hidden="true" className="p-2 bg-primary rounded-full text-white">
                                                     <Send className="w-3.5 h-3.5" />
                                                 </button>
                                             </div>
@@ -386,9 +277,6 @@ export default function Hero() {
                                     ) : (
                                         <motion.div
                                             key="dashboard"
-                                            role="tabpanel"
-                                            id="dashboard-panel"
-                                            aria-labelledby="dashboard-tab"
                                             initial={{ opacity: 0 }}
                                             animate={{ opacity: 1 }}
                                             exit={{ opacity: 0 }}

@@ -1,19 +1,54 @@
 "use client";
 
+import { motion } from "framer-motion";
 import { ArrowRight, TrendingUp, Users, GraduationCap } from "lucide-react";
-import { useRef } from "react";
 import { useLanguage } from "@/context/LanguageContext";
-import { useGsapReveal } from "@/hooks/useGsapReveal";
-import { CeramicMark, ConversationPath } from "@/components/visuals/CeramicVisuals";
-import { SectionDivider } from "@/components/visuals/SectionDivider";
 
-const icons = [TrendingUp, Users, GraduationCap];
+const container = {
+    hidden: { opacity: 0 },
+    show: {
+        opacity: 1,
+        transition: {
+            staggerChildren: 0.15,
+        },
+    },
+};
+
+const item = {
+    hidden: { opacity: 0, y: 20 },
+    show: { opacity: 1, y: 0 },
+};
+
+// Static color mapping to prevent dynamic Tailwind class resolution failures
+const colorMap = [
+    {
+        bg: "bg-emerald-500/10",
+        text: "text-emerald-600",
+        bgBadge: "bg-emerald-500/10",
+        textBadge: "text-emerald-700",
+        borderHover: "hover:border-emerald-500/30",
+        icon: TrendingUp
+    },
+    {
+        bg: "bg-blue-500/10",
+        text: "text-blue-600",
+        bgBadge: "bg-blue-500/10",
+        textBadge: "text-blue-700",
+        borderHover: "hover:border-blue-500/30",
+        icon: Users
+    },
+    {
+        bg: "bg-indigo-500/10",
+        text: "text-indigo-600",
+        bgBadge: "bg-indigo-500/10",
+        textBadge: "text-indigo-700",
+        borderHover: "hover:border-indigo-500/30",
+        icon: GraduationCap
+    }
+];
 
 export default function UseCases() {
     const { t, language } = useLanguage();
-    const sectionRef = useRef<HTMLElement>(null);
-
-    useGsapReveal(sectionRef, { stagger: 0.12 });
 
     // Prominent metrics highlighting concrete outcomes for each vertical
     const outcomes = [
@@ -32,90 +67,89 @@ export default function UseCases() {
     ];
 
     return (
-        <section
-            id="use-cases"
-            ref={sectionRef}
-            data-language={language}
-            className="section-studio bg-foreground text-background"
-        >
-            <div className="pointer-events-none absolute inset-0 opacity-20" aria-hidden="true">
-                <div className="clay-grid absolute inset-0" />
-                <CeramicMark data-gsap-float variant="tall" className="absolute -right-12 top-16 hidden h-80 w-80 text-primary lg:block" />
-            </div>
-
-            <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-                <div className="grid gap-8 lg:grid-cols-[1fr_0.7fr] lg:items-end">
-                    <h2 data-gsap-reveal className="section-title-studio max-w-3xl text-background">
+        <section id="use-cases" className="py-16 sm:py-20 lg:py-28 bg-muted/20 relative">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div className="text-center max-w-3xl mx-auto mb-16 sm:mb-20">
+                    <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-4 sm:mb-6">
                         {t.useCases.title}
                     </h2>
-                    <p data-gsap-reveal className="max-w-xl text-base leading-relaxed text-background/65 sm:text-lg">
+                    <p className="text-base sm:text-lg text-muted-foreground leading-relaxed">
                         {t.useCases.subtitle}
                     </p>
                 </div>
 
-                <ConversationPath className="my-10 w-full text-secondary/70 sm:my-14" />
-
-                <div className="grid gap-6 lg:grid-cols-3">
+                <motion.div
+                    variants={container}
+                    initial="hidden"
+                    whileInView="show"
+                    viewport={{ once: true }}
+                    className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8"
+                >
                     {t.useCases.items.map((useCase, index) => {
-                        const Icon = icons[index] ?? TrendingUp;
+                        const style = colorMap[index % colorMap.length];
+                        const Icon = style.icon;
                         const outcome = outcomes[index % outcomes.length];
 
                         return (
-                            <article
-                                key={useCase.title}
-                                data-gsap-reveal
-                                className="story-panel group flex min-h-[430px] flex-col justify-between p-6 text-foreground sm:p-8"
+                            <motion.div
+                                key={index}
+                                variants={item}
+                                className={`group relative bg-white rounded-xl p-6 sm:p-8 shadow-sm hover:shadow-md transition-all duration-300 border border-muted ${style.borderHover} flex flex-col justify-between`}
                             >
-                                <div className="relative z-10">
-                                    <div className="flex items-start justify-between gap-4">
-                                        <div className="grid h-12 w-12 place-items-center rounded-full bg-primary text-white shadow-[0_7px_0_var(--primary-hover)]">
-                                            <Icon className="h-5 w-5" aria-hidden="true" />
-                                        </div>
-                                        <span className="font-mono text-xs text-muted-foreground">
-                                            {String(index + 1).padStart(2, "0")}
-                                        </span>
+                                <div>
+                                    {/* Outlined Icon Accent */}
+                                    <div className="absolute top-4 right-4 opacity-5 group-hover:opacity-10 transition-opacity duration-300" aria-hidden="true">
+                                        <Icon className="w-20 h-20" />
                                     </div>
 
-                                    <div className="mt-9">
-                                        <span className="block text-5xl font-black tracking-[-0.05em] text-foreground">
+                                    {/* Vertical Icon */}
+                                    <div className={`w-12 h-12 rounded-lg ${style.bg} flex items-center justify-center mb-6 group-hover:scale-105 transition-transform duration-300`}>
+                                        <Icon className={`w-6 h-6 ${style.text}`} />
+                                    </div>
+
+                                    {/* Big Outcome Metric */}
+                                    <div className="mb-4">
+                                        <span className="text-3xl sm:text-4xl font-black text-foreground block tracking-tight">
                                             {outcome.metric}
                                         </span>
-                                        <span className="mt-1 block text-xs font-bold uppercase tracking-[0.14em] text-primary">
+                                        <span className="text-xs font-semibold text-primary uppercase tracking-wider block mt-1">
                                             {outcome.label}
                                         </span>
                                     </div>
 
-                                    <h3 className="mt-7 text-2xl font-bold tracking-tight">
+                                    <h3 className="text-xl font-bold text-foreground mb-3 group-hover:text-primary transition-colors duration-300">
                                         {useCase.title}
                                     </h3>
-                                    <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+
+                                    <p className="text-muted-foreground leading-relaxed mb-6 text-sm">
                                         {useCase.description}
                                     </p>
                                 </div>
 
-                                <div className="relative z-10 mt-8">
-                                    <div className="mb-6 flex flex-wrap gap-2">
-                                        {useCase.tags.map((tag) => (
+                                <div>
+                                    {/* Tags */}
+                                    <div className="flex flex-wrap gap-2 mb-6">
+                                        {useCase.tags.map((tag, i) => (
                                             <span
-                                                key={tag}
-                                                className="rounded-full border border-foreground/10 bg-muted/40 px-2.5 py-1 text-xs font-semibold"
+                                                key={i}
+                                                className={`px-2.5 py-1 text-xs font-semibold rounded-full ${style.bgBadge} ${style.textBadge}`}
                                             >
                                                 {tag}
                                             </span>
                                         ))}
                                     </div>
 
-                                    <button className="group/btn flex items-center text-sm font-semibold text-primary transition-colors hover:text-primary-hover">
+                                    {/* Action link */}
+                                    <button className="flex items-center text-sm font-semibold text-primary hover:text-primary-hover transition-colors group/btn">
                                         {t.useCases.readMore}
-                                        <ArrowRight className="ml-1 h-4 w-4 transition-transform group-hover/btn:translate-x-1" />
+                                        <ArrowRight className="w-4 h-4 ml-1 transform group-hover/btn:translate-x-1 transition-transform duration-300" />
                                     </button>
                                 </div>
-                            </article>
+                            </motion.div>
                         );
                     })}
-                </div>
+                </motion.div>
             </div>
-            <SectionDivider data-gsap-divider fill="var(--background)" variant="deep" />
         </section>
     );
 }
