@@ -36,7 +36,7 @@ npm install
 เริ่มต้น Development Server:
 
 ```bash
-npm run dev
+npm run  dev
 ```
 
 เปิดเบราว์เซอร์ที่
