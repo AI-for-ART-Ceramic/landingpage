@@ -82,7 +82,7 @@ export default function TechStack() {
                   className="tech-ledger-row group"
                 >
                   <div className="flex items-center gap-3">
-                    <span className="font-mono text-xs text-primary">
+                    <span className="text-xs text-primary">
                       {String(index + 1).padStart(2, "0")}
                     </span>
                     <div className="grid h-10 w-10 place-items-center rounded-full border border-primary/25 bg-primary/5 text-primary transition-colors group-hover:bg-primary group-hover:text-white">
@@ -97,7 +97,7 @@ export default function TechStack() {
                     {group.items.map((item) => (
                       <li
                         key={item}
-                        className="rounded-full border border-foreground/10 bg-paper px-3 py-1.5 font-mono text-[0.68rem] text-muted-foreground transition-colors group-hover:border-secondary-hover/50"
+                        className="rounded-full border border-foreground/10 bg-paper px-3 py-1.5 text-[0.68rem] text-muted-foreground transition-colors group-hover:border-secondary-hover/50"
                       >
                         {item}
                       </li>

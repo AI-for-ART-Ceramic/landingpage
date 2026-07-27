@@ -20,7 +20,7 @@ export default function Footer() {
                                 </svg>
                             </div>
                             <span className="text-lg sm:text-xl font-bold text-white">
-                                Lanna <span className="text-secondary font-extrabold font-serif">AI</span>
+                                Lanna <span className="text-secondary font-extrabold">AI</span>
                             </span>
                         </Link>
                         <p className="text-white/75 text-xs sm:text-sm leading-relaxed max-w-xs">

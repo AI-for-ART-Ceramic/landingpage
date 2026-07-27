@@ -34,7 +34,7 @@ export default function Navbar() {
                             </svg>
                         </div>
                         <span className="text-xl font-bold text-foreground transition-colors group-hover:text-primary">
-                            Lanna <span className="text-primary font-extrabold font-serif">AI</span>
+                            Lanna <span className="text-primary font-extrabold">AI</span>
                         </span>
                     </Link>
 

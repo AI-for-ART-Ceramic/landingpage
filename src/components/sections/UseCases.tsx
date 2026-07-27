@@ -71,7 +71,7 @@ export default function UseCases() {
                                         <div className="grid h-12 w-12 place-items-center rounded-full bg-primary text-white shadow-[0_7px_0_var(--primary-hover)]">
                                             <Icon className="h-5 w-5" aria-hidden="true" />
                                         </div>
-                                        <span className="font-mono text-xs text-muted-foreground">
+                                        <span className="text-xs text-muted-foreground">
                                             {String(index + 1).padStart(2, "0")}
                                         </span>
                                     </div>
