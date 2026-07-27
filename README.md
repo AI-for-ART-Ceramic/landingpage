@@ -1,4 +1,4 @@
-<img width="1919" height="865" alt="image" src="./docs/images/v0.1.8.png" />
+<img width="1533" height="698" alt="image" src="./docs/images/v0.1.8.png" />
 
 
 # 🎨 Lanna AI  – Landing Page
