@@ -4,8 +4,9 @@ WORKDIR /app
 
 # ติดตั้ง dependencies ตาม package.json
 COPY package*.json ./
-# The image build intentionally excludes .git, so skip Husky's prepare hook.
-RUN HUSKY=0 npm ci
+# The image build intentionally excludes .git and must resolve optional native
+# packages for the Linux target without running the Husky prepare hook.
+RUN npm install --ignore-scripts --include=optional
 
 # Copy โค้ดทั้งหมดและทำการ Build
 COPY . .
