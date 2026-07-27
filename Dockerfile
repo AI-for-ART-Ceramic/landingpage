@@ -4,7 +4,8 @@ WORKDIR /app
 
 # ติดตั้ง dependencies ตาม package.json
 COPY package*.json ./
-RUN npm ci
+# The image build intentionally excludes .git, so skip Husky's prepare hook.
+RUN HUSKY=0 npm ci
 
 # Copy โค้ดทั้งหมดและทำการ Build
 COPY . .
