@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { Menu, X, Globe } from "lucide-react";
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -26,13 +27,14 @@ export default function Navbar() {
                 <div className="flex items-center justify-between h-16">
                     {/* Logo */}
                     <Link href="/" className="group flex items-center space-x-2">
-                        <div className="rounded-full border border-primary/20 bg-primary/10 p-1.5 transition-transform duration-300 group-hover:-rotate-6 group-hover:scale-105">
-                            <svg viewBox="0 0 24 24" className="w-5 h-5 text-primary fill-none stroke-[2] stroke-current" aria-hidden="true">
-                                <path d="M12 2C10.5 2 9 4.5 9 6.5C9 7.8 8 9 6 10C4 11 3 13.5 3 16C3 19.3 7 22 12 22C17 22 21 19.3 21 16C21 13.5 20 11 18 10C16 9 15 7.8 15 6.5C15 4.5 13.5 2 12 2Z" />
-                                <path d="M9 6.5H15" />
-                                <path d="M12 22V20" />
-                            </svg>
-                        </div>
+                        <Image
+                            src="/logo.png"
+                            alt="Lanna AI logo"
+                            width={40}
+                            height={40}
+                            className="h-10 w-10 rounded-full transition-transform duration-300 group-hover:-rotate-6 group-hover:scale-105"
+                            priority
+                        />
                         <span className="text-xl font-bold text-foreground transition-colors group-hover:text-primary">
                             Lanna <span className="text-primary font-extrabold">AI</span>
                         </span>
