@@ -32,6 +32,23 @@ npm install
 
 ---
 
+## 🔑 Environment Variables
+
+คัดลอกไฟล์ตัวอย่างก่อนเริ่มพัฒนา:
+
+```bash
+cp .env.example .env.local
+```
+
+| ตัวแปร | คำอธิบาย |
+| --- | --- |
+| `NEXT_PUBLIC_VERSION` | เวอร์ชันของแอปที่แสดงผล (ตั้งค่าอัตโนมัติจาก git tag ตอน deploy) |
+| `NEXT_PUBLIC_EVALUATION_FORM_URL` | ลิงก์ Google Form สำหรับเมนู "การประเมิน" ใน Navbar |
+
+> ตัวแปรที่ขึ้นต้นด้วย `NEXT_PUBLIC_` จะถูกฝังเข้าไปใน production build ตอน `npm run build` ดังนั้นเวลา deploy ผ่าน Docker/CI ต้องส่งค่าเป็น build-arg (ดูหัวข้อ [🚢 Deployment](#-deployment))
+
+---
+
 ## 💻 Development
 
 เริ่มต้น Development Server:
@@ -55,6 +72,7 @@ npm run  dev
 * `npm run build` – Build สำหรับ Production
 * `npm run start` – รัน Production Server
 * `npm run lint` – ตรวจสอบคุณภาพโค้ดด้วย ESLint
+* `npm run test` – รัน Unit Tests ด้วย Vitest
 * `npm run format` – จัดรูปแบบโค้ดด้วย Prettier
 
 ---
@@ -82,23 +100,28 @@ Production Server จะรันที่
 
 ## 🚢 Deployment
 
-### Deploy ด้วย Vercel
+### Deploy อัตโนมัติผ่าน GitHub Actions
 
-* เชื่อมต่อ Git Repository นี้กับ **Vercel**
-* เมื่อ Merge โค้ดเข้า Branch `main`
-* ระบบจะ **Deploy อัตโนมัติ (Auto Deploy)**
+Production deploy ทำผ่าน workflow `.github/workflows/docker-publish.yml` ไม่ใช่ Vercel:
+
+* **Trigger:** push git tag ที่ขึ้นต้นด้วย `v` (เช่น `git tag v0.2.0 && git push --tags`) หรือรันเองผ่าน `workflow_dispatch`
+* **Job `build`** (GitHub-hosted runner): build Docker image พร้อม build-args `NEXT_PUBLIC_VERSION` (มาจากชื่อ tag) และ `NEXT_PUBLIC_EVALUATION_FORM_URL` (มาจาก GitHub Actions repository variable) แล้ว push ขึ้น GHCR (`ghcr.io/<owner>/<repo>`)
+* **Job `deploy`** (self-hosted runner): pull image ล่าสุด, หยุด/ลบ container `landingpage-app` เดิม, รัน container ใหม่ที่พอร์ต `3030`, ตรวจสอบด้วย health check ก่อนจบงาน
+
+> ต้องตั้งค่า repository variable ชื่อ `NEXT_PUBLIC_EVALUATION_FORM_URL` ไว้ที่ Settings → Secrets and variables → Actions → Variables ก่อน deploy ครั้งแรก
 
 ---
 
 ## 🛠️ Tech Stack
 
-* **Framework:** Next.js 16.0.10
+* **Framework:** Next.js 16.1.6
 * **Language:** TypeScript 5
 * **UI Library:** React 19.2.1
 * **Styling:** Tailwind CSS 4
-* **Animation:** Framer Motion 12
+* **Animation:** Framer Motion 12, GSAP + @gsap/react
 * **Icons:** Lucide React
 * **Utilities:** clsx, tailwind-merge
+* **Testing:** Vitest, Testing Library, jsdom
 * **Linting:** ESLint 9 + Prettier
 * **Git Hooks:** Husky + lint-staged
 
@@ -108,7 +131,11 @@ Production Server จะรันที่
 
 ```bash
 landingpage/
+├── .github/workflows/           # CI/CD (docker-publish.yml)
+├── .husky/                      # Git hooks
+├── docs/images/                 # README screenshots
 ├── public/                      # Static assets
+├── scripts/                     # One-off scripts (shot.mjs)
 ├── src/
 │   ├── app/                     # Next.js App Router
 │   │   ├── page.tsx             # Home page
@@ -120,26 +147,38 @@ landingpage/
 │   │   ├── sections/            # Section components
 │   │   │   ├── Features.tsx
 │   │   │   ├── Footer.tsx
-│   │   │   ├── Hero.tsx
+│   │   │   ├── Hero.tsx (+ Hero.test.tsx)
 │   │   │   ├── Navbar.tsx
-│   │   │   └── TechStack.tsx
-│   │   └── ui/                  # UI components
-│   ├── context/                 # React Context
-│   │   └── LanguageContext.tsx
-│   ├── lib/                     # Utilities & constants
+│   │   │   ├── TechStack.tsx
+│   │   │   └── UseCases.tsx
+│   │   └── visuals/              # Decorative visual components (+ tests)
+│   │       ├── CeramicVisuals.tsx
+│   │       └── SectionDivider.tsx
+│   ├── hooks/                    # Custom React hooks
+│   │   └── useGsapReveal.ts
+│   ├── i18n/                     # Language context & translations
+│   │   ├── LanguageContext.tsx
+│   │   └── translations.ts
+│   ├── lib/                      # Utilities & constants
 │   │   ├── constants.ts
 │   │   └── utils.ts
-│   └── utils/                   # Helper utilities
-│       └── translations.ts
-├── Dockerfile                   # Docker configuration
-├── eslint.config.mjs            # ESLint configuration
-├── next.config.ts               # Next.js configuration
-├── postcss.config.mjs           # PostCSS configuration
-├── tsconfig.json                # TypeScript configuration
-└── package.json                 # Scripts & dependencies
+│   ├── styles/                   # CSS partials (per section)
+│   └── test/                     # Vitest setup
+│       └── setup.ts
+├── .env.example                  # Environment variable template
+├── .prettierrc                   # Prettier configuration
+├── Dockerfile                    # Docker configuration
+├── eslint.config.mjs             # ESLint configuration
+├── next.config.ts                # Next.js configuration
+├── postcss.config.mjs            # PostCSS configuration
+├── tsconfig.json                 # TypeScript configuration
+├── vitest.config.ts              # Vitest configuration
+└── package.json                  # Scripts & dependencies
 ```
 
-## 🐳 Docker Deployment
+## 🐳 Docker Deployment (Local Testing)
+
+สำหรับทดสอบ Docker build บนเครื่องตัวเองเท่านั้น — production ใช้ pipeline อัตโนมัติตามหัวข้อ [🚢 Deployment](#-deployment) ด้านบน
 
 ### Build Docker Image
 
