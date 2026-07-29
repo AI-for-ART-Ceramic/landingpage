@@ -16,9 +16,9 @@ export default function Navbar() {
     const toggleMenu = () => setIsOpen(!isOpen);
 
     const navLinks = [
+        { name: t.navbar.evaluation, href: process.env.NEXT_PUBLIC_EVALUATION_FORM_URL ?? "#", external: true },
         { name: t.navbar.features, href: pathname === "/" ? "#features" : "/#features" },
         { name: t.navbar.techStack, href: pathname === "/" ? "#tech-stack" : "/#tech-stack" },
-        { name: t.navbar.evaluation, href: process.env.NEXT_PUBLIC_EVALUATION_FORM_URL ?? "#", external: true },
     ];
 
     return (
@@ -141,7 +141,7 @@ export default function Navbar() {
                                 )
                             )}
                             <a
-                                href="https://chat.lanna-ai.com"
+                                href="https://ceramix.lanna-ai.com"
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="block w-full text-center mt-4 px-4 py-3 font-semibold text-white bg-primary rounded-lg hover:bg-primary-hover transition-colors"

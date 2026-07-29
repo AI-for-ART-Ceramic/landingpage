@@ -33,7 +33,7 @@ export default function Footer() {
                         <ul className="space-y-2 text-xs sm:text-sm text-white/75">
                             <li><Link href="#features" className="hover:text-secondary transition-colors">{t.footer.features}</Link></li>
                             <li><Link href="#tech-stack" className="hover:text-secondary transition-colors">{t.footer.technology}</Link></li>
-                            <li><a href="https://chat.lanna-ai.com" className="hover:text-secondary transition-colors">{t.footer.login}</a></li>
+                            <li><a href="https://ceramix.lanna-ai.com" className="hover:text-secondary transition-colors">{t.footer.login}</a></li>
                         </ul>
                     </div>
 
