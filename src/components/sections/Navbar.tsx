@@ -18,7 +18,7 @@ export default function Navbar() {
     const navLinks = [
         { name: t.navbar.features, href: pathname === "/" ? "#features" : "/#features" },
         { name: t.navbar.techStack, href: pathname === "/" ? "#tech-stack" : "/#tech-stack" },
-        { name: t.navbar.useCases, href: pathname === "/" ? "#use-cases" : "/#use-cases" },
+        { name: t.navbar.evaluation, href: process.env.NEXT_PUBLIC_EVALUATION_FORM_URL ?? "#", external: true },
     ];
 
     return (
@@ -42,15 +42,27 @@ export default function Navbar() {
 
                     {/* Desktop Menu */}
                     <div className="hidden md:flex items-center space-x-8">
-                        {navLinks.map((link) => (
-                            <Link
-                                key={link.name}
-                                href={link.href}
-                                className="nav-link text-sm font-medium text-muted-foreground"
-                            >
-                                {link.name}
-                            </Link>
-                        ))}
+                        {navLinks.map((link) =>
+                            link.external ? (
+                                <a
+                                    key={link.name}
+                                    href={link.href}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="nav-link text-sm font-medium text-muted-foreground"
+                                >
+                                    {link.name}
+                                </a>
+                            ) : (
+                                <Link
+                                    key={link.name}
+                                    href={link.href}
+                                    className="nav-link text-sm font-medium text-muted-foreground"
+                                >
+                                    {link.name}
+                                </Link>
+                            )
+                        )}
 
                         {/* Language Toggle */}
                         <button
@@ -105,16 +117,29 @@ export default function Navbar() {
                         className="mt-2 overflow-hidden rounded-3xl border border-foreground/10 bg-background shadow-xl md:hidden"
                     >
                         <div className="px-4 pt-2 pb-6 space-y-2">
-                            {navLinks.map((link) => (
-                                <Link
-                                    key={link.name}
-                                    href={link.href}
-                                    onClick={() => setIsOpen(false)}
-                                    className="block px-3 py-2 text-base font-medium text-muted-foreground hover:text-primary hover:bg-muted/50 rounded-md"
-                                >
-                                    {link.name}
-                                </Link>
-                            ))}
+                            {navLinks.map((link) =>
+                                link.external ? (
+                                    <a
+                                        key={link.name}
+                                        href={link.href}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        onClick={() => setIsOpen(false)}
+                                        className="block px-3 py-2 text-base font-medium text-muted-foreground hover:text-primary hover:bg-muted/50 rounded-md"
+                                    >
+                                        {link.name}
+                                    </a>
+                                ) : (
+                                    <Link
+                                        key={link.name}
+                                        href={link.href}
+                                        onClick={() => setIsOpen(false)}
+                                        className="block px-3 py-2 text-base font-medium text-muted-foreground hover:text-primary hover:bg-muted/50 rounded-md"
+                                    >
+                                        {link.name}
+                                    </Link>
+                                )
+                            )}
                             <a
                                 href="https://chat.lanna-ai.com"
                                 target="_blank"
