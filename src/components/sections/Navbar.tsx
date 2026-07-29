@@ -16,7 +16,7 @@ export default function Navbar() {
     const toggleMenu = () => setIsOpen(!isOpen);
 
     const navLinks = [
-        { name: t.navbar.evaluation, href: process.env.NEXT_PUBLIC_EVALUATION_FORM_URL ?? "#", external: true },
+        { name: t.navbar.evaluation, href: process.env.NEXT_PUBLIC_EVALUATION_FORM_URL || "#", external: true },
         { name: t.navbar.features, href: pathname === "/" ? "#features" : "/#features" },
         { name: t.navbar.techStack, href: pathname === "/" ? "#tech-stack" : "/#tech-stack" },
     ];
