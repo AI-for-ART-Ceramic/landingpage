@@ -2,7 +2,7 @@
 
 import Navbar from "@/components/sections/Navbar";
 import Footer from "@/components/sections/Footer";
-import { useLanguage } from "@/context/LanguageContext";
+import { useLanguage } from "@/i18n/LanguageContext";
 
 export default function TermsOfService() {
     const { t } = useLanguage();

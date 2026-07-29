@@ -1,0 +1,58 @@
+.feature-flow-card {
+  position: relative;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 1.15rem;
+  isolation: isolate;
+  padding-block: 1.6rem;
+}
+
+.feature-flow-card:not(:first-child)::before {
+  position: absolute;
+  top: 0;
+  right: 5%;
+  left: 0;
+  height: 0.85rem;
+  content: "";
+  border-top: 1px solid color-mix(in srgb, var(--foreground) 15%, transparent);
+  border-radius: 50% 50% 0 0;
+}
+
+.feature-flow-card::after {
+  position: absolute;
+  top: 0.3rem;
+  left: 0;
+  width: 0;
+  height: 2px;
+  content: "";
+  background: var(--primary);
+  transition: width 360ms ease;
+}
+
+.feature-flow-card:hover::after {
+  width: 100%;
+}
+
+.feature-index {
+  display: grid;
+  width: 2.8rem;
+  height: 2.8rem;
+  place-items: center;
+  border: 1px solid color-mix(in srgb, var(--foreground) 16%, transparent);
+  border-radius: 50%;
+  background: var(--paper);
+  color: var(--primary);
+  font-size: 0.7rem;
+  font-weight: 800;
+}
+
+@media (max-width: 639px) {
+  .feature-flow-card {
+    gap: 0.85rem;
+    padding-block: 1.35rem;
+  }
+
+  .feature-flow-card:not(:first-child)::before {
+    right: 0;
+  }
+}

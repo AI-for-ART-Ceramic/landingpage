@@ -2,7 +2,7 @@
 
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowRight, Bot, BarChart3, ShieldCheck, Send } from "lucide-react";
-import { useLanguage } from "@/context/LanguageContext";
+import { useLanguage } from "@/i18n/LanguageContext";
 import { useState, useEffect, useRef } from "react";
 import type { KeyboardEvent } from "react";
 import { useGSAP } from "@gsap/react";

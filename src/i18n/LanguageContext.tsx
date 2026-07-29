@@ -1,7 +1,7 @@
 "use client";
 
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { translations } from '@/utils/translations';
+import { translations } from './translations';
 
 type Language = 'en' | 'th';
 type Translations = typeof translations.en;
@@ -20,8 +20,6 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
     useEffect(() => {
         const savedLang = localStorage.getItem('language') as Language;
         if (savedLang && (savedLang === 'en' || savedLang === 'th')) {
-            // Restore after hydration so the server and first client render stay aligned.
-            // eslint-disable-next-line react-hooks/set-state-in-effect
             setLanguage(savedLang);
         }
     }, []);

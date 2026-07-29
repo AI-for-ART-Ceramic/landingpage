@@ -5,7 +5,7 @@ import Image from "next/image";
 import { Menu, X, Globe } from "lucide-react";
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { useLanguage } from "@/context/LanguageContext";
+import { useLanguage } from "@/i18n/LanguageContext";
 import { usePathname } from "next/navigation";
 
 export default function Navbar() {

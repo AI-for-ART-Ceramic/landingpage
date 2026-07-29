@@ -2,7 +2,7 @@
 
 import { Cpu, HardDrive, Layout, Server } from "lucide-react";
 import { useRef } from "react";
-import { useLanguage } from "@/context/LanguageContext";
+import { useLanguage } from "@/i18n/LanguageContext";
 import { useGsapReveal } from "@/hooks/useGsapReveal";
 import {
   ConversationPath,
