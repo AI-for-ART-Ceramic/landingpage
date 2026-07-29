@@ -1,0 +1,68 @@
+.section-studio {
+  position: relative;
+  overflow: hidden;
+  padding: clamp(4.5rem, 9vw, 8rem) 0 clamp(6.5rem, 11vw, 10rem);
+}
+
+.section-divider {
+  position: absolute;
+  right: 0;
+  bottom: -1px;
+  left: 0;
+  z-index: 20;
+  height: clamp(3.25rem, 7vw, 7rem);
+  pointer-events: none;
+}
+
+.section-divider svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.section-divider-blur {
+  filter: blur(10px);
+  opacity: 0.34;
+}
+
+.section-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--primary);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.section-kicker::before {
+  width: 1.8rem;
+  height: 2px;
+  content: "";
+  background: var(--secondary);
+}
+
+.section-title-studio {
+  margin-top: 0.75rem;
+  font-size: clamp(2.2rem, 5vw, 4.8rem);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.045em;
+}
+
+[data-language="th"] .section-title-studio {
+  line-height: 1.12;
+}
+
+@media (max-width: 639px) {
+  .section-studio {
+    padding-top: 4.5rem;
+    padding-bottom: 5.5rem;
+  }
+
+  .section-divider {
+    height: 3.25rem;
+  }
+}

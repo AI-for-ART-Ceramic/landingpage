@@ -1,0 +1,45 @@
+.cta-clay,
+.cta-clay-secondary {
+  display: inline-flex;
+  min-height: 3.2rem;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  border-radius: 999px;
+  padding: 0.8rem 1.65rem;
+  font-weight: 750;
+  transition:
+    transform 220ms ease,
+    box-shadow 220ms ease,
+    background-color 220ms ease;
+}
+
+.cta-clay {
+  border: 1px solid var(--primary-hover);
+  background: var(--primary);
+  color: white;
+  box-shadow:
+    0 8px 0 var(--primary-hover),
+    0 18px 34px color-mix(in srgb, var(--primary) 24%, transparent);
+}
+
+.cta-clay:hover {
+  transform: translateY(-3px);
+  background: var(--primary-hover);
+  box-shadow:
+    0 10px 0 color-mix(in srgb, var(--primary-hover) 82%, black),
+    0 22px 40px color-mix(in srgb, var(--primary) 28%, transparent);
+}
+
+.cta-clay-secondary {
+  border: 1px solid color-mix(in srgb, var(--foreground) 18%, transparent);
+  background: color-mix(in srgb, var(--paper) 88%, transparent);
+  color: var(--foreground);
+  box-shadow: 0 8px 24px rgba(43, 51, 59, 0.05);
+}
+
+.cta-clay-secondary:hover {
+  transform: translateY(-2px);
+  border-color: var(--secondary-hover);
+  background: var(--secondary);
+}

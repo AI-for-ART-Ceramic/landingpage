@@ -1,6 +1,6 @@
 import { act, fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import { LanguageProvider } from "@/context/LanguageContext";
+import { LanguageProvider } from "@/i18n/LanguageContext";
 import Hero from "./Hero";
 
 function renderHero() {

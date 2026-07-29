@@ -1,0 +1,150 @@
+.hero-studio::after {
+  position: absolute;
+  right: -8%;
+  bottom: -9rem;
+  width: 48rem;
+  height: 15rem;
+  content: "";
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--primary) 8%, transparent);
+  filter: blur(36px);
+  pointer-events: none;
+}
+
+h1.hero-title-thai {
+  font-family: var(--font-google-sans), var(--font-noto-sans-thai), sans-serif !important;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.12;
+}
+
+.hero-studio[data-language="th"] .hero-title-contained {
+  font-family: var(--font-google-sans), var(--font-noto-sans-thai), sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.eyebrow-clay {
+  border: 1px solid color-mix(in srgb, var(--primary) 30%, transparent);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--paper) 82%, transparent);
+  padding: 0.45rem 0.85rem;
+  color: var(--primary);
+  font-size: 0.75rem;
+  font-weight: 750;
+  box-shadow: 0 8px 30px rgba(43, 51, 59, 0.05);
+  backdrop-filter: blur(12px);
+}
+
+.studio-demo-shell {
+  border: 1px solid color-mix(in srgb, var(--foreground) 18%, transparent);
+  border-radius: 2rem 2rem 1rem 1rem;
+  background: var(--paper);
+  box-shadow:
+    0 2px 0 rgba(255, 255, 255, 0.9) inset,
+    0 28px 70px var(--clay-shadow),
+    12px 14px 0 color-mix(in srgb, var(--secondary) 52%, transparent);
+}
+
+.studio-demo-shell::before {
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  content: "";
+  background:
+    radial-gradient(circle at 88% 10%, rgba(255, 214, 9, 0.24), transparent 23%),
+    radial-gradient(circle at 8% 94%, rgba(185, 51, 39, 0.08), transparent 28%);
+  pointer-events: none;
+}
+
+.studio-demo-tabs {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  gap: 0.5rem;
+  border-bottom: 1px solid var(--muted);
+  background: color-mix(in srgb, var(--muted) 32%, transparent);
+  padding: 0.65rem;
+}
+
+.studio-demo-tab {
+  display: flex;
+  min-height: 2.8rem;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  padding: 0.55rem 0.75rem;
+  font-size: 0.75rem;
+  font-weight: 750;
+  transition:
+    background 180ms ease,
+    color 180ms ease,
+    transform 180ms ease;
+}
+
+.studio-demo-tab-active {
+  border-color: color-mix(in srgb, var(--primary) 25%, transparent);
+  background: var(--primary);
+  color: white;
+  box-shadow: 0 7px 20px color-mix(in srgb, var(--primary) 22%, transparent);
+}
+
+.studio-demo-body {
+  position: relative;
+  z-index: 1;
+  min-height: clamp(430px, 45vw, 560px);
+  padding: 1rem;
+}
+
+.ceramic-preview-scene {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 50% 86%, rgba(43, 51, 59, 0.14), transparent 28%),
+    linear-gradient(145deg, color-mix(in srgb, var(--accent) 10%, var(--paper)), var(--paper));
+}
+
+.conversation-path {
+  color: var(--primary);
+  overflow: visible;
+}
+
+.ceramic-mark {
+  overflow: visible;
+  filter: drop-shadow(0 14px 18px rgba(43, 51, 59, 0.12));
+}
+
+.insight-ring {
+  overflow: visible;
+}
+
+@media (min-width: 640px) {
+  .studio-demo-tab {
+    font-size: 0.875rem;
+  }
+
+  .studio-demo-body {
+    padding: 1.25rem;
+  }
+}
+
+@media (max-width: 639px) {
+  .hero-studio {
+    padding-bottom: 4.5rem;
+  }
+
+  .hero-studio h1 {
+    overflow-wrap: anywhere;
+  }
+
+  .studio-demo-shell {
+    border-radius: 1.35rem 1.35rem 0.85rem 0.85rem;
+    box-shadow:
+      0 20px 46px rgba(43, 51, 59, 0.11),
+      5px 7px 0 color-mix(in srgb, var(--secondary) 50%, transparent);
+  }
+}

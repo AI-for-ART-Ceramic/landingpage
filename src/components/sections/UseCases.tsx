@@ -2,7 +2,7 @@
 
 import { ArrowRight, TrendingUp, Users, GraduationCap } from "lucide-react";
 import { useRef } from "react";
-import { useLanguage } from "@/context/LanguageContext";
+import { useLanguage } from "@/i18n/LanguageContext";
 import { useGsapReveal } from "@/hooks/useGsapReveal";
 import { CeramicMark, ConversationPath } from "@/components/visuals/CeramicVisuals";
 import { SectionDivider } from "@/components/visuals/SectionDivider";
