@@ -178,7 +178,7 @@ export const translations = {
             features: "ฟีเจอร์",
             techStack: "เทคโนโลยี",
             useCases: "การใช้งาน",
-            evaluation: "การประเมิน",
+            evaluation: "แบบการประเมิน",
             launchCeramix: "เปิด Ceramix",
             launchApp: "เข้าสู่ระบบ",
         },
